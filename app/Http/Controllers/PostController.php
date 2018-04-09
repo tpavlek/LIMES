@@ -12,7 +12,7 @@ class PostController extends Controller
 
     public function store()
     {
-        // Store a post.
+
     }
 
 }

@@ -36,6 +36,11 @@
  * @import "components/forms";
  */
 
+body, html {
+    margin: 0;
+    padding: 0;
+}
+
 /**
  * This injects all of Tailwind's utility classes, generated based on your
  * config file.
