@@ -32,6 +32,7 @@ class DatabaseSeeder extends Seeder
             'location_id' => $location->id,
             'author_id' => $user->id,
             'body' => "I really like this buddy bench because it's all rainbow and cool WOW I LOVE COKE!",
+            'img_url' => 'astley.jpg',
             'author_type' => get_class($user),
         ]);
 
