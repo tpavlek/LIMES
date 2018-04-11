@@ -9,6 +9,7 @@ class Post extends Model
 {
 
     public $table = "posts";
+    protected $attributes = ['imageLocation' => 'default.jpeg'];
     public $guarded = [];
 
     public function user()
