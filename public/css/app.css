@@ -3398,6 +3398,10 @@ html {
   padding: 2rem;
 }
 
+.p-12 {
+  padding: 3rem;
+}
+
 .p-px {
   padding: 1px;
 }
@@ -3470,6 +3474,16 @@ html {
 .px-8 {
   padding-left: 2rem;
   padding-right: 2rem;
+}
+
+.py-12 {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
+.px-12 {
+  padding-left: 3rem;
+  padding-right: 3rem;
 }
 
 .py-px {
@@ -3592,6 +3606,22 @@ html {
 
 .pl-8 {
   padding-left: 2rem;
+}
+
+.pt-12 {
+  padding-top: 3rem;
+}
+
+.pr-12 {
+  padding-right: 3rem;
+}
+
+.pb-12 {
+  padding-bottom: 3rem;
+}
+
+.pl-12 {
+  padding-left: 3rem;
 }
 
 .pt-px {
@@ -7389,6 +7419,10 @@ html {
     padding: 2rem;
   }
 
+  .sm\:p-12 {
+    padding: 3rem;
+  }
+
   .sm\:p-px {
     padding: 1px;
   }
@@ -7461,6 +7495,16 @@ html {
   .sm\:px-8 {
     padding-left: 2rem;
     padding-right: 2rem;
+  }
+
+  .sm\:py-12 {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+
+  .sm\:px-12 {
+    padding-left: 3rem;
+    padding-right: 3rem;
   }
 
   .sm\:py-px {
@@ -7583,6 +7627,22 @@ html {
 
   .sm\:pl-8 {
     padding-left: 2rem;
+  }
+
+  .sm\:pt-12 {
+    padding-top: 3rem;
+  }
+
+  .sm\:pr-12 {
+    padding-right: 3rem;
+  }
+
+  .sm\:pb-12 {
+    padding-bottom: 3rem;
+  }
+
+  .sm\:pl-12 {
+    padding-left: 3rem;
   }
 
   .sm\:pt-px {
@@ -11358,6 +11418,10 @@ html {
     padding: 2rem;
   }
 
+  .md\:p-12 {
+    padding: 3rem;
+  }
+
   .md\:p-px {
     padding: 1px;
   }
@@ -11430,6 +11494,16 @@ html {
   .md\:px-8 {
     padding-left: 2rem;
     padding-right: 2rem;
+  }
+
+  .md\:py-12 {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+
+  .md\:px-12 {
+    padding-left: 3rem;
+    padding-right: 3rem;
   }
 
   .md\:py-px {
@@ -11552,6 +11626,22 @@ html {
 
   .md\:pl-8 {
     padding-left: 2rem;
+  }
+
+  .md\:pt-12 {
+    padding-top: 3rem;
+  }
+
+  .md\:pr-12 {
+    padding-right: 3rem;
+  }
+
+  .md\:pb-12 {
+    padding-bottom: 3rem;
+  }
+
+  .md\:pl-12 {
+    padding-left: 3rem;
   }
 
   .md\:pt-px {
@@ -15327,6 +15417,10 @@ html {
     padding: 2rem;
   }
 
+  .lg\:p-12 {
+    padding: 3rem;
+  }
+
   .lg\:p-px {
     padding: 1px;
   }
@@ -15399,6 +15493,16 @@ html {
   .lg\:px-8 {
     padding-left: 2rem;
     padding-right: 2rem;
+  }
+
+  .lg\:py-12 {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+
+  .lg\:px-12 {
+    padding-left: 3rem;
+    padding-right: 3rem;
   }
 
   .lg\:py-px {
@@ -15521,6 +15625,22 @@ html {
 
   .lg\:pl-8 {
     padding-left: 2rem;
+  }
+
+  .lg\:pt-12 {
+    padding-top: 3rem;
+  }
+
+  .lg\:pr-12 {
+    padding-right: 3rem;
+  }
+
+  .lg\:pb-12 {
+    padding-bottom: 3rem;
+  }
+
+  .lg\:pl-12 {
+    padding-left: 3rem;
   }
 
   .lg\:pt-px {
@@ -19296,6 +19416,10 @@ html {
     padding: 2rem;
   }
 
+  .xl\:p-12 {
+    padding: 3rem;
+  }
+
   .xl\:p-px {
     padding: 1px;
   }
@@ -19368,6 +19492,16 @@ html {
   .xl\:px-8 {
     padding-left: 2rem;
     padding-right: 2rem;
+  }
+
+  .xl\:py-12 {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+
+  .xl\:px-12 {
+    padding-left: 3rem;
+    padding-right: 3rem;
   }
 
   .xl\:py-px {
@@ -19490,6 +19624,22 @@ html {
 
   .xl\:pl-8 {
     padding-left: 2rem;
+  }
+
+  .xl\:pt-12 {
+    padding-top: 3rem;
+  }
+
+  .xl\:pr-12 {
+    padding-right: 3rem;
+  }
+
+  .xl\:pb-12 {
+    padding-bottom: 3rem;
+  }
+
+  .xl\:pl-12 {
+    padding-left: 3rem;
   }
 
   .xl\:pt-px {

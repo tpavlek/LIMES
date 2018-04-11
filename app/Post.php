@@ -12,9 +12,9 @@ class Post extends Model
     protected $attributes = ['imageLocation' => 'default.jpeg'];
     public $guarded = [];
 
-    public function user()
+    public function author()
     {
-        return $this->belongsTo(User::class);
+        return $this->morphTo();
     }
 
     public function location()
@@ -22,4 +22,16 @@ class Post extends Model
         return $this->belongsTo(Location::class);
     }
 
+<<<<<<< HEAD
+=======
+    public function hasImage()
+    {
+        return $this->img_url !== null;
+    }
+
+    public function getImage()
+    {
+        return "/img/posts/" . $this->img_url;
+    }
+>>>>>>> master
 }

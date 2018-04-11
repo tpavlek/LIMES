@@ -17,7 +17,17 @@ class Posts extends Migration
             $table->increments('id');
             $table->text('title');
 
+            $table->unsignedInteger('author_id');
+            $table->string('author_type');
+
+            $table->unsignedInteger('location_id');
+            $table->foreign('location_id')->references('id')->on('locations');
+
             $table->text('body');
+
+            $table->string('img_url')->nullable()->default(null);
+
+            $table->timestamps();
         });
     }
 
@@ -28,6 +38,6 @@ class Posts extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('posts');
     }
 }
