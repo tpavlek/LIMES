@@ -20,11 +20,13 @@ class Locations extends Migration
             $table->unique('ref_uuid');
 
             $table->string('name');
-            $table->string('description');
-            $table->string('lat');
-            $table->string('lon');
+            $table->string('description')->nullable()->default(null);;
+            $table->string('lat')->nullable()->default(null);
+            $table->string('lon')->nullable()->default(null);;
 
             $table->string('img_path');
+
+            $table->timestamps();
         });
     }
 
@@ -35,6 +37,6 @@ class Locations extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('locations');
     }
 }

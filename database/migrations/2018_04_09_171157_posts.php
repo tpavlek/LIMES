@@ -16,7 +16,12 @@ class Posts extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->increments('id');
 
+            $table->unsignedInteger('location_id');
+            $table->foreign('location_id')->references('id')->on('locations');
+
             $table->text('body');
+
+            $table->timestamps();
         });
     }
 
@@ -27,6 +32,6 @@ class Posts extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('posts');
     }
 }

@@ -5,8 +5,8 @@
 
     <div class="relative">
         <div class="h-64 bg-cover bg-center" style='background-image: url("{{ $location->getImage() }}");'></div>
-        <div class="bg-red-lighter absolute pin-b pin-l pin-r -mb-6 mx-auto h-12 w-12 rounded-full text-center inline z-40">
-            <span class="fas fa-arrow-down h-12 w-12"></span>
+        <div class="bg-green-lightest border-green-dark shadow border-2 absolute pin-b pin-r mr-8 -mb-6 h-12 w-12 rounded-full text-center inline z-40">
+            <span class="h-12 w-12 text-2xl leading-loose">{{ $location->posts->count() }}</span>
         </div>
     </div>
 

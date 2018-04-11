@@ -1,5 +1,6 @@
 <?php
 
+use App\Location;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -11,6 +12,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
+        $location = Location::build('Hazeldean Buddy Bench', [
+            'id' => 1,
+            'img_path' => '/hazeldean-buddy-bench.jpg',
+            'description' => "Installed in 2015, this buddy bench brings together Edmontonians in the community for fun times"
+        ]);
     }
 }
