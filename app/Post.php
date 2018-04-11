@@ -10,13 +10,23 @@ class Post extends Model
     public $table = "posts";
     public $guarded = [];
 
-    public function user()
+    public function author()
     {
-        return $this->belongsTo(User::class);
+        return $this->morphTo();
     }
 
     public function location()
     {
         return $this->belongsTo(Location::class);
+    }
+
+    public function hasImage()
+    {
+        return $this->img_url !== null;
+    }
+
+    public function getImage()
+    {
+        return "/img/posts/" . $this->img_url;
     }
 }
