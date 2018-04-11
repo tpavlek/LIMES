@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Posts extends Migration
+class AddTimestampsToPosts extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,8 @@ class Posts extends Migration
      */
     public function up()
     {
-        Schema::create('posts', function (Blueprint $table) {
-            $table->increments('id');
-            $table->text('title');
-
-            $table->text('body');
+        Schema::table('posts', function(Blueprint $table){
+            $table->timestamps();
         });
     }
 
@@ -28,6 +25,8 @@ class Posts extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('posts', function(Blueprint $table){
+            $table->dropTimestamps();
+        });
     }
 }
