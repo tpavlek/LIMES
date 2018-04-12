@@ -19,6 +19,7 @@
 
     <div class="text-center">
         <hello-form authenticated="{{ Auth::check() }}" post-action="/#post-route"></hello-form>
+
     </div>
 
     @forelse($location->posts as $post)
