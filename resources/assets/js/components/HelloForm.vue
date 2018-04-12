@@ -6,7 +6,7 @@
         <div v-show="showingLoginForm">
             <h3 class="mb-2">Do you want to:</h3>
             <button class="block mx-auto bg-green-dark hover:bg-green-darker text-white px-4 py-2 border border-green-dark text-xl leading-loose shadow rounded mb-4">
-                <span class="fas fa-comment mr-2"></span> Create an Account
+                <span class="fas fa-comment mr-2"></span> Use an Account
             </button>
 
             <button @click="showPostForm" class="block mx-auto px-4 py-2 border border-green-dark text-xl leading-loose rounded mb-4">
@@ -19,7 +19,7 @@
                 <form method="post" :action="postAction" enctype="multipart/form-data">
                     <template v-if="!authenticated">
                         <div class="text-left">
-                            <label for="display_name" class="tracking wide font-bold text-sm text-grey-dark">DISPLAY NAME</label>
+                            <label for="display_name" class="tracking-wide font-bold text-sm text-grey-dark">DISPLAY NAME</label>
                             <input type="text" id="display_name" name="display_name" placeholder="Display Name" class="my-2 bg-grey-light p-2 rounded w-full" />
                         </div>
                     </template>
@@ -33,7 +33,9 @@
                     </label>
                     <input id="image" type="file" accept="image/*" class="hidden" @change="changeLabel" />
 
-                    <input type="submit" value="Post" class="bg-green-dark hover:bg-green-darker text-white px-4 py-2 border-green-darkest text-xl leading-loose shadow rounded mb-4" />
+                    <button type="submit" class="bg-green-dark hover:bg-green-darker text-white px-4 py-2 border-green-darkest text-xl leading-loose shadow rounded mb-4">
+                        <i class="fas fa-paper-plane"></i> Submit Message
+                    </button>
                 </form>
             </div>
         </div>
