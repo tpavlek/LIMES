@@ -17,6 +17,8 @@ class CreateUsersTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('email')->unique();
+            $table->string('snapchat')->nullable()->default(null);
+            $table->string('twitter')->nullable()->default(null);
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
