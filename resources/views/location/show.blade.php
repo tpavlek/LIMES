@@ -39,7 +39,7 @@
                     {{ $post->body }}
                 </p>
 
-                @if($post->author_type !== App\AnonUser::class)
+                @if(!$post->hasAnonymousAuthor())
                     <form action="{{route('add_connection', ['id' => $post->author->id])}}" method="post">
                         {{csrf_field()}}
                         <button type="submit" class="btn bg-blue-light shadow border-2 rounded-full pin-l">Connect with this user.</button>

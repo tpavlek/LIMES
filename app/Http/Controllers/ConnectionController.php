@@ -21,20 +21,18 @@ class ConnectionController extends Controller
 
     public function add($id)
     {
-        $connection = new Connection();
+        $to_user = User::findOrFail($id);
 
-        $connection->owner_id = Auth::user()->id;
-        $connection->user_id = $id;
+        $connection = Connection::connect(Auth::user(), $to_user);
 
-
-        if(count(Connection::where('owner_id', $connection->owner_id)->where('user_id', $connection->user_id)->get()) > 0)
+        if(!Auth::user()->hasAlreadyConnectedWith($to_user))
         {
-            abort(200, 'Already connected with this user.');
+            $connection->save();
         }
 
-        $connection->save();
         return view('users.connected')
-            ->with('connection', $connection);
+            ->with('connection', $connection)
+            ->with('user_name', $to_user->name);
     }
 
 }

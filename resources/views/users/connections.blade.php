@@ -9,7 +9,6 @@
 
     @forelse($connections as $connection)
         <div>
-            <?php $user = App\User::findOrFail($connection->owner_id) ?>
             {{$user->name}} <br>
             {{$user->twitter}} <br>
             {{$user->email}} <br> <br>
