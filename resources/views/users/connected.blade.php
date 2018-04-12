@@ -14,5 +14,5 @@
     You might hear from them soon! <br>
     Being social is all about visiting new places and meeting new folks! <br>
     Thanks for using limes!<br>
-    <a href="">Back to location page.</a>
+    <a href="/">Back to home page.</a>
 @stop

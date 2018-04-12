@@ -49,12 +49,17 @@ let colors = {
   'black': '#22292f',
   'grey-darkest': '#3d4852',
   'grey-darker': '#606f7b',
-  'grey-dark': '#8795a1',
-  'grey': '#b8c2cc',
-  'grey-light': '#dae1e7',
-  'grey-lighter': '#f1f5f8',
+  'greengrey-dark': '#86a094',
+  'greengrey': '#b8ccc1',
+  'greengrey-light': '#dae7df',
+  'greengrey-lighter': '#f1f8f3',
   'grey-lightest': '#f8fafc',
   'white': '#ffffff',
+
+    'grey-dark': '#8795A1',
+    'grey': '#B8C2CC',
+    'grey-light': '#DAE1E7',
+    'grey-lighter': '#F1F5F8',
 
   'red-darkest': '#3b0d0c',
   'red-darker': '#621b18',
@@ -194,6 +199,7 @@ module.exports = {
 
   fonts: {
     'sans': [
+        'Lato',
       'system-ui',
       'BlinkMacSystemFont',
       '-apple-system',
