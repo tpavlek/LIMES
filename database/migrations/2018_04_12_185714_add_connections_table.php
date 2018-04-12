@@ -14,6 +14,7 @@ class AddConnectionsTable extends Migration
     public function up()
     {
         Schema::create('connections', function (Blueprint $table) {
+            $table->increments("id");
             $table->unsignedInteger('owner_id');
             $table->unsignedInteger('user_id');
             $table->timestamps();

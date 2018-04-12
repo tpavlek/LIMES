@@ -16,6 +16,7 @@ Route::post('hello/{id}', 'PostController@store');
 
 Route::get('user/{id}/connections', 'ConnectionController@show')->name('connections');
 Route::post('user/{id}/connections', 'ConnectionController@add')->name('add_connection');
+Route::delete('user/{id}/connections', 'ConnectionController@remove')->name('remove_connection');
 
 Route::get('fb-redirect', 'Auth\LoginController@redirectToFacebook')->name('fb-redirect');
 Route::get('fb-callback', 'Auth\LoginController@facebookCallback');
