@@ -2,7 +2,7 @@
 
 @section('title')
     Created a new post!
-@endsection
+@stop
 
 @section('content')
     Thanks for using Edmonton's Location Integrated Messaging and Experience Service! <BR>
@@ -16,4 +16,4 @@
 
     <!-- Include some limes here -->
     <a href="{{url()->current()}}"> Back to location page </a>
-@endsection
+@stop

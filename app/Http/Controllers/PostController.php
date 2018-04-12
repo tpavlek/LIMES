@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Location;
 use App\Post;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -11,9 +12,9 @@ class PostController extends Controller
 
     public function create($id)
     {
-        //$location = Location::with('posts')->findOrFail($id);
+        $location = Location::with('posts')->findOrFail($id);
 
-        return view('posts.create')->with("location", $id);
+        return view('posts.create')->with("location", $location);
     }
 
     public function store(Request $request, $id)
@@ -29,10 +30,12 @@ class PostController extends Controller
 
         //create post
         $post = new Post();
-        $post->body = $request['body'];
+        $post->body = $request->input('body');
 
+        //TODO: This should be from session data, the currently authenticated user.
+        //This is placeholder code so that posts can still be added.
         $post->author_id = 1;
-        $post->author_type = "App\User";
+        $post->author_type = User::class;
 
 
         $post->img_url = $request->hasFile('image') ?

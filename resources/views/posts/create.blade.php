@@ -1,14 +1,14 @@
 @extends('layout')
 
 @section('title')
-    Create a new post for {{$location}}!
-@endsection
+    Create a new post for {{$location->name}}!
+@stop
 
 @section('content')
 
     <!-- please make this look nicer -->
     <div class="container-fluid">
-        <form action="../{{$location}}" method="POST" enctype="multipart/form-data">
+        <form action={{url()->route('location', ['id'=> $location->id])}} method="POST" enctype="multipart/form-data">
             {{csrf_field()}}
 
 
@@ -35,4 +35,4 @@
             </div>
         @endif
     </div>
-@endsection
+@stop
