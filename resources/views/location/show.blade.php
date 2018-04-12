@@ -22,9 +22,9 @@
     </div>
 
     <div class="text-center">
-        <button class="bg-green-dark hover:bg-green-darker text-white px-4 py-2 border-green-darkest text-xl leading-loose shadow rounded mb-4">
-            <span class="fas fa-comment"></span> Say Hello
-        </button>
+        <a href="{{url()->route('new_post', ['id' => $location->id])}}" class="btn bg-green-dark hover:bg-green-darker text-white px-4 py-2 border-green-darkest text-xl leading-loose shadow rounded mb-4">
+            <span class="fas fa-comment"></span>Say Hello
+        </a>
     </div>
 
     @forelse($location->posts as $post)

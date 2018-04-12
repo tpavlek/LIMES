@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Post extends Model
 {
@@ -20,6 +21,7 @@ class Post extends Model
         return $this->belongsTo(Location::class);
     }
 
+
     public function hasImage()
     {
         return $this->img_url !== null;
@@ -27,6 +29,7 @@ class Post extends Model
 
     public function getImage()
     {
-        return "/img/posts/" . $this->img_url;
+        return '/storage/'.$this->img_url;
     }
+
 }

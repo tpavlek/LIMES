@@ -4,9 +4,11 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Carbon\Carbon;
 
 class User extends Authenticatable
 {
+
     use Notifiable;
 
     /**
@@ -36,4 +38,5 @@ class User extends Authenticatable
     {
         return "https://www.gravatar.com/avatar/" . md5(strtolower($this->email));
     }
+
 }
