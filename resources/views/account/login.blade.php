@@ -24,9 +24,11 @@
             <label for="password" class="tracking-wide font-bold text-sm text-grey-dark">PASSWORD</label>
             <input type="password" name="password" id="password" placeholder="Keep it secret, keep it safe" class="my-2 bg-grey-light p-2 rounded w-full" />
 
-            <button type="submit" class="bg-green-dark text-white px-4 py-2 mx-auto border-blue-darkest leading-loose shadow rounded mb-4">
-                <i class="fab fa-facebook-square text-xl"></i> Login
-            </button>
+            <div class="text-center">
+                <button type="submit" class="bg-green-dark text-white px-4 py-2 mx-auto border-blue-darkest leading-loose shadow rounded mb-4">
+                    Login
+                </button>
+            </div>
         </form>
 
         <div class="text-center font-bold text-sm tracking-wide text-grey-dark mt-4">
@@ -35,9 +37,9 @@
         <hr class="border-b"/>
 
         <div class="text-center">
-            <button class="bg-blue-dark text-white px-4 py-2 mx-auto border-blue-darkest leading-loose shadow rounded mb-4">
+            <a href="{{ URL::route('fb-redirect') }}" class="inline-block no-underline bg-blue-dark text-white px-4 py-2 mx-auto border-blue-darkest leading-loose shadow rounded mb-4">
                 <i class="fab fa-facebook-square text-xl"></i> &nbsp; Login with Facebook
-            </button>
+            </a>
         </div>
     </div>
 
@@ -57,9 +59,11 @@
             <label for="password_confirmation" class="tracking-wide font-bold text-sm text-grey-dark">CONFIRM</label>
             <input type="password" name="password_confirmation" id="password_confirmation" placeholder="Doubly secret, double the safety" class="my-2 bg-grey-light p-2 rounded w-full" />
 
-            <button type="submit" class="bg-green-dark text-white px-4 py-2 mx-auto border-blue-darkest leading-loose shadow rounded mb-4">
-                <i class="fab fa-facebook-square text-xl"></i> Register
-            </button>
+            <div class="text-center">
+                <button type="submit" class="bg-green-dark text-white px-4 py-2 mx-auto border-blue-darkest leading-loose shadow rounded mb-4">
+                    Register
+                </button>
+            </div>
         </form>
 
         <div class="text-center font-bold text-sm tracking-wide text-grey-dark mt-4">
@@ -68,9 +72,9 @@
         <hr class="border-b"/>
 
         <div class="text-center">
-            <button class="bg-blue-dark text-white px-4 py-2 mx-auto border-blue-darkest leading-loose shadow rounded mb-4">
+            <a href="{{ URL::route('fb-redirect') }}" class="inline-block no-underline bg-blue-dark text-white px-4 py-2 mx-auto border-blue-darkest leading-loose shadow rounded mb-4">
                 <i class="fab fa-facebook-square text-xl"></i> &nbsp; Register with Facebook
-            </button>
+            </a>
         </div>
     </div>
 @stop

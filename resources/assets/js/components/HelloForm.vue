@@ -5,9 +5,9 @@
         </button>
         <div v-show="showingLoginForm">
             <h3 class="mb-2">Do you want to:</h3>
-            <button class="block mx-auto bg-green-dark hover:bg-green-darker text-white px-4 py-2 border border-green-dark text-xl leading-loose shadow rounded mb-4">
+            <a :href="accountLink" class="inline-block no-underline mx-auto bg-green-dark hover:bg-green-darker text-white px-4 py-2 border border-green-dark text-xl leading-loose shadow rounded mb-4">
                 <span class="fas fa-comment mr-2"></span> Use an Account
-            </button>
+            </a>
 
             <button @click="showPostForm" class="block mx-auto px-4 py-2 border border-green-dark text-xl leading-loose rounded mb-4">
                 Post Anonymously
@@ -44,7 +44,7 @@
 
 <script>
     export default {
-        props: [ 'authenticated', 'postAction'],
+        props: [ 'authenticated', 'postAction', 'accountLink' ],
         data() {
             return {
                 showingLoginForm: false,

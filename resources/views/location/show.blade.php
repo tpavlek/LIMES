@@ -18,7 +18,7 @@
     </div>
 
     <div class="text-center">
-        <hello-form authenticated="{{ Auth::check() }}" post-action="/#post-route"></hello-form>
+        <hello-form authenticated="{{ Auth::check() }}" post-action="/#post-route" account-link="{{ URL::route('login', [ 'returnTo' => $location->id ]) }}"></hello-form>
 
     </div>
 

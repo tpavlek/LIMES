@@ -13,6 +13,20 @@
 </head>
 <body>
 <div id="app" class="h-full w-full bg-greengrey-lighter font-sans">
+    @if (Auth::check())
+        <nav class="bg-green flex shadow">
+            <div class="flex-grow p-4 text-white">
+                <a class="h-full text-white no-underline" href="{{ URL::to('/') }}"><span class="far fa-lemon"></span></a>
+            </div>
+            <div class="text-white p-4">
+                <a class="text-white no-underline" href="{{ URL::route('profile') }}"><span class="fas fa-user"></span> Me</a>
+            </div>
+
+            <div class="text-white p-4">
+                <a class="text-white no-underline " href="{{ URL::route('logout') }}"><span class="fas fa-sign-out-alt"></span></a>
+            </div>
+        </nav>
+    @endif
     @yield('content')
 </div>
 

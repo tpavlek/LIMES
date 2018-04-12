@@ -47300,9 +47300,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['authenticated', 'postAction'],
+    props: ['authenticated', 'postAction', 'accountLink'],
     data: function data() {
         return {
             showingLoginForm: false,
@@ -47379,7 +47381,18 @@ var render = function() {
       [
         _c("h3", { staticClass: "mb-2" }, [_vm._v("Do you want to:")]),
         _vm._v(" "),
-        _vm._m(0),
+        _c(
+          "a",
+          {
+            staticClass:
+              "inline-block no-underline mx-auto bg-green-dark hover:bg-green-darker text-white px-4 py-2 border border-green-dark text-xl leading-loose shadow rounded mb-4",
+            attrs: { href: _vm.accountLink }
+          },
+          [
+            _c("span", { staticClass: "fas fa-comment mr-2" }),
+            _vm._v(" Use an Account\n        ")
+          ]
+        ),
         _vm._v(" "),
         _c(
           "button",
@@ -47423,7 +47436,7 @@ var render = function() {
                 }
               },
               [
-                !_vm.authenticated ? [_vm._m(1)] : _vm._e(),
+                !_vm.authenticated ? [_vm._m(0)] : _vm._e(),
                 _vm._v(" "),
                 _c("textarea", {
                   staticClass: "bg-grey-light p-2 rounded w-full h-32 mb-2",
@@ -47503,11 +47516,7 @@ var render = function() {
                   on: { change: _vm.changeLabel }
                 }),
                 _vm._v(" "),
-                _c("input", {
-                  staticClass:
-                    "bg-green-dark hover:bg-green-darker text-white px-4 py-2 border-green-darkest text-xl leading-loose shadow rounded mb-4",
-                  attrs: { type: "submit", value: "Post" }
-                })
+                _vm._m(1)
               ],
               2
             )
@@ -47522,27 +47531,11 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "button",
-      {
-        staticClass:
-          "block mx-auto bg-green-dark hover:bg-green-darker text-white px-4 py-2 border border-green-dark text-xl leading-loose shadow rounded mb-4"
-      },
-      [
-        _c("span", { staticClass: "fas fa-comment mr-2" }),
-        _vm._v(" Create an Account\n        ")
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "text-left" }, [
       _c(
         "label",
         {
-          staticClass: "tracking wide font-bold text-sm text-grey-dark",
+          staticClass: "tracking-wide font-bold text-sm text-grey-dark",
           attrs: { for: "display_name" }
         },
         [_vm._v("DISPLAY NAME")]
@@ -47558,6 +47551,23 @@ var staticRenderFns = [
         }
       })
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass:
+          "bg-green-dark hover:bg-green-darker text-white px-4 py-2 border-green-darkest text-xl leading-loose shadow rounded mb-4",
+        attrs: { type: "submit" }
+      },
+      [
+        _c("i", { staticClass: "fas fa-paper-plane" }),
+        _vm._v(" Submit Message\n                ")
+      ]
+    )
   }
 ]
 render._withStripped = true
