@@ -24,7 +24,7 @@ class PostController extends Controller
 
         //validate data ~ TODO: move to configuration file
         $request->validate([
-            'body' => 'required|max:50000',
+            'body' => 'required|max:50000|min:10',
             'image' => 'max: 2048'
         ]);
 
