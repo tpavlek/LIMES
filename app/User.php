@@ -29,9 +29,6 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-<<<<<<< HEAD
-
-=======
     public function posts()
     {
         return $this->morphMany(Post::class, 'author');
@@ -41,5 +38,5 @@ class User extends Authenticatable
     {
         return "https://www.gravatar.com/avatar/" . md5(strtolower($this->email));
     }
->>>>>>> master
+
 }

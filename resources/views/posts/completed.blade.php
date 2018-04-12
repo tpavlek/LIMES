@@ -9,8 +9,11 @@
     Your post will appear on this buddy bench shortly after moderator approval. <BR>
     We hope you have a nice day! <br>
 
-    <img src="/storage/{{$image_url}}"> <br>
+    @if($post->hasImage())
+        <img src="{{$post->getImage()}}"> <br>
+    @endif
+
 
     <!-- Include some limes here -->
-    <a href="/"> Back to LIMES homepage~~ </a>
+    <a href="{{url()->current()}}"> Back to location page </a>
 @endsection
