@@ -21,7 +21,6 @@ class Post extends Model
         return $this->belongsTo(Location::class);
     }
 
-
     public function hasImage()
     {
         return $this->img_url !== null;
@@ -29,7 +28,7 @@ class Post extends Model
 
     public function getImage()
     {
-        return '/storage/'.$this->img_url;
+        return '/img/posts/' . $this->img_url;
     }
 
 }
