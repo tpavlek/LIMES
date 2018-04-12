@@ -5,19 +5,17 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Hash;
 
+/**
+ * @property bool facebook_connected
+ */
 class User extends Authenticatable
 {
 
     use Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'name', 'email', 'password',
+    protected $guarded = [
     ];
 
     /**
@@ -26,8 +24,23 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password',
+        'remember_token',
     ];
+
+    public static function buildFromFacebook($socialite_user)
+    {
+        $instance = self::create([
+            'email' => $socialite_user->email,
+            'name' => $socialite_user->name,
+            'password' => Hash::make(str_random(8)),
+            'facebook_connected' => true,
+        ]);
+
+        \File::put(public_path() . "/img/user/" . $instance->id . ".jpg", file_get_contents($socialite_user->getAvatar()));
+
+        return $instance;
+    }
 
     public function posts()
     {
@@ -36,7 +49,21 @@ class User extends Authenticatable
 
     public function getImage()
     {
+        if (\File::exists(public_path() . "/img/user/{$this->id}.jpg")) {
+            return "/img/user/{$this->id}.jpg";
+        }
+
         return "https://www.gravatar.com/avatar/" . md5(strtolower($this->email));
+    }
+
+    public function hasNotConnectedFacebook()
+    {
+        return ! $this->hasConnectedFacebook();
+    }
+
+    public function hasConnectedFacebook()
+    {
+        return $this->facebook_connected;
     }
 
 }

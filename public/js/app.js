@@ -13882,7 +13882,7 @@ window.Vue = __webpack_require__(36);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example-component', __webpack_require__(39));
+Vue.component('hello-form', __webpack_require__(39));
 
 var app = new Vue({
   el: '#app'
@@ -47122,7 +47122,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/components/ExampleComponent.vue"
+Component.options.__file = "resources/assets/js/components/HelloForm.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -47131,9 +47131,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-7168fb6a", Component.options)
+    hotAPI.createRecord("data-v-fec754e2", Component.options)
   } else {
-    hotAPI.reload("data-v-7168fb6a", Component.options)
+    hotAPI.reload("data-v-fec754e2", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -47274,10 +47274,65 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    mounted: function mounted() {
-        console.log('Component mounted.');
+    props: ['authenticated', 'postAction', 'accountLink'],
+    data: function data() {
+        return {
+            showingLoginForm: false,
+            showingPostForm: false,
+            fileAdded: false
+        };
+    },
+
+    methods: {
+        showForm: function showForm() {
+            if (!this.authenticated) {
+                this.showingLoginForm = true;
+            } else {
+                this.showingPostForm = true;
+            }
+        },
+        showPostForm: function showPostForm() {
+            this.showingLoginForm = false;
+            this.showingPostForm = true;
+        },
+        changeLabel: function changeLabel() {
+            this.fileAdded = true;
+        }
+    },
+    computed: {
+        showingForm: function showingForm() {
+            return this.showingLoginForm || this.showingPostForm;
+        }
     }
 });
 
@@ -47289,30 +47344,230 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", [
+    _c(
+      "button",
+      {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: !_vm.showingForm,
+            expression: "!showingForm"
+          }
+        ],
+        staticClass:
+          "bg-green-dark hover:bg-green-darker text-white px-4 py-2 border-green-darkest text-xl leading-loose shadow rounded mb-4",
+        on: { click: _vm.showForm }
+      },
+      [
+        _c("span", { staticClass: "fas fa-comment" }),
+        _vm._v(" Say Hello\n    ")
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.showingLoginForm,
+            expression: "showingLoginForm"
+          }
+        ]
+      },
+      [
+        _c("h3", { staticClass: "mb-2" }, [_vm._v("Do you want to:")]),
+        _vm._v(" "),
+        _c(
+          "a",
+          {
+            staticClass:
+              "inline-block no-underline mx-auto bg-green-dark hover:bg-green-darker text-white px-4 py-2 border border-green-dark text-xl leading-loose shadow rounded mb-4",
+            attrs: { href: _vm.accountLink }
+          },
+          [
+            _c("span", { staticClass: "fas fa-comment mr-2" }),
+            _vm._v(" Use an Account\n        ")
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass:
+              "block mx-auto px-4 py-2 border border-green-dark text-xl leading-loose rounded mb-4",
+            on: { click: _vm.showPostForm }
+          },
+          [_vm._v("\n            Post Anonymously\n        ")]
+        )
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.showingPostForm,
+            expression: "showingPostForm"
+          }
+        ]
+      },
+      [
+        _c(
+          "div",
+          {
+            staticClass:
+              "pt-8 border-b border-l border-r shadow mx-4 bg-white px-4 mb-4 relative z-10"
+          },
+          [
+            _c(
+              "form",
+              {
+                attrs: {
+                  method: "post",
+                  action: _vm.postAction,
+                  enctype: "multipart/form-data"
+                }
+              },
+              [
+                !_vm.authenticated ? [_vm._m(0)] : _vm._e(),
+                _vm._v(" "),
+                _c("textarea", {
+                  staticClass: "bg-grey-light p-2 rounded w-full h-32 mb-2",
+                  attrs: {
+                    id: "body",
+                    name: "body",
+                    title: "Write your post...",
+                    placeholder: "Write your post..."
+                  }
+                }),
+                _vm._v(" "),
+                _c(
+                  "label",
+                  {
+                    staticClass:
+                      "mx-auto mb-2 block w-32 h-32 bg-grey-lighter text-grey border-2 border-grey border-dashed flex flex-col justify-center align-center",
+                    attrs: { for: "image" }
+                  },
+                  [
+                    _c(
+                      "span",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: !_vm.fileAdded,
+                            expression: "!fileAdded"
+                          }
+                        ],
+                        staticClass: "mx-auto p-2 flex-grow"
+                      },
+                      [_c("span", { staticClass: "fas fa-plus text-3xl" })]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "span",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: !_vm.fileAdded,
+                            expression: "!fileAdded"
+                          }
+                        ],
+                        staticClass: "p-2 text-xl"
+                      },
+                      [_vm._v("Add an Image")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "span",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.fileAdded,
+                            expression: "fileAdded"
+                          }
+                        ],
+                        staticClass: "p-2 text-center"
+                      },
+                      [
+                        _c("span", {
+                          staticClass: "text-4xl fas fa-check-circle"
+                        })
+                      ]
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c("input", {
+                  staticClass: "hidden",
+                  attrs: { id: "image", type: "file", accept: "image/*" },
+                  on: { change: _vm.changeLabel }
+                }),
+                _vm._v(" "),
+                _vm._m(1)
+              ],
+              2
+            )
+          ]
+        )
+      ]
+    )
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
-      _c("div", { staticClass: "row justify-content-center" }, [
-        _c("div", { staticClass: "col-md-8" }, [
-          _c("div", { staticClass: "card card-default" }, [
-            _c("div", { staticClass: "card-header" }, [
-              _vm._v("Example Component")
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
-              _vm._v(
-                "\n                    I'm an example component.\n                "
-              )
-            ])
-          ])
-        ])
-      ])
+    return _c("div", { staticClass: "text-left" }, [
+      _c(
+        "label",
+        {
+          staticClass: "tracking-wide font-bold text-sm text-grey-dark",
+          attrs: { for: "display_name" }
+        },
+        [_vm._v("DISPLAY NAME")]
+      ),
+      _vm._v(" "),
+      _c("input", {
+        staticClass: "my-2 bg-grey-light p-2 rounded w-full",
+        attrs: {
+          type: "text",
+          id: "display_name",
+          name: "display_name",
+          placeholder: "Display Name"
+        }
+      })
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass:
+          "bg-green-dark hover:bg-green-darker text-white px-4 py-2 border-green-darkest text-xl leading-loose shadow rounded mb-4",
+        attrs: { type: "submit" }
+      },
+      [
+        _c("i", { staticClass: "fas fa-paper-plane" }),
+        _vm._v(" Submit Message\n                ")
+      ]
+    )
   }
 ]
 render._withStripped = true
@@ -47320,7 +47575,7 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-7168fb6a", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-fec754e2", module.exports)
   }
 }
 

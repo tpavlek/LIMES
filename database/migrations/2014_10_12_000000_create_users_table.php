@@ -20,6 +20,8 @@ class CreateUsersTable extends Migration
             $table->string('snapchat')->nullable()->default(null);
             $table->string('twitter')->nullable()->default(null);
             $table->string('password');
+
+            $table->boolean('facebook_connected')->default(false);
             $table->rememberToken();
             $table->timestamps();
         });

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Connection;
+use Illuminate\Support\Facades\Auth;
 
 class ConnectionController extends Controller
 {
@@ -21,10 +22,10 @@ class ConnectionController extends Controller
     public function add($id)
     {
         $connection = new Connection();
-        //placeholder for testing TODO:Remove
-        $connection->owner_id = 1;
-        //$connection->owner_id = Auth::user()->id;
+
+        $connection->owner_id = Auth::user()->id;
         $connection->user_id = $id;
+
 
         if(count(Connection::where('owner_id', $connection->owner_id)->where('user_id', $connection->user_id)->get()) > 0)
         {
