@@ -7,32 +7,42 @@ use App\User;
 
 class Connection extends Model
 {
-    //Return a list of connections available to you
-    public static function getIncomingConnections(User $user)
+
+
+    public function user()
     {
-        $ids = self::where('user_id', $user->id)->pluck('owner_id')->toArray();
-        return array_map(function($id){ return User::find($id); }, $ids);
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function owner()
+    {
+        return $this->belongsTo(User::class, 'owner_id');
     }
 
     //Return a list of connections you've attempted to make
+    public static function getIncomingConnections(User $user)
+    {
+        return self::where('user_id', $user->id)->get()->map(function ($connection) { return $connection->owner; });
+    }
+
+    //Return a list of connections available to you
     public static function getOutgoingConnections(User $user)
     {
-        $ids = self::where('owner_id', $user->id)->pluck('user_id')->toArray();
-        return array_map(function($id){ return User::find($id); }, $ids);
+        return self::where('owner_id', $user->id)->get()->map(function ($connection) { return $connection->user; });
     }
 
     public static function connect(User $from, User $to)
     {
-        $connection = new Connection();
-        $connection->owner_id = $from->id;
-        $connection->user_id = $to->id;
-        return $connection;
+        return Connection::create([
+            'user_id' => $to->id,
+            'owner_id' => $from->id
+        ]);
     }
 
     public static function disconnect(User $from, User $to)
     {
-        $connection = Connection::where('owner_id', $from->id)->where('user_id', $to->id)->firstOrFail();
-        $connection->delete();
+        Connection::where('owner_id', $from->id)->where('user_id', $to->id)->firstOrFail()->delete();
     }
 
 }
+

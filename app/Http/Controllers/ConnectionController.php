@@ -9,11 +9,21 @@ use Illuminate\Support\Facades\Auth;
 
 class ConnectionController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function show($id)
     {
+        /**
+         * @var User
+         */
         $user = User::findOrFail($id);
-        $incoming = Connection::getIncomingConnections($user);
-        $outgoing = Connection::getOutgoingConnections($user);
+
+        $incoming = $user->incomingConnections();
+        $outgoing = $user->outgoingConnections();
 
         return view('users.connections')
             ->with('user', $user)

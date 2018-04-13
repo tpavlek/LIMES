@@ -66,9 +66,19 @@ class User extends Authenticatable
         return $this->facebook_connected;
     }
 
+    public function incomingConnections()
+    {
+        return Connection::getIncomingConnections($this);
+    }
+
+    public function outgoingConnections()
+    {
+        return Connection::getOutgoingConnections($this);
+    }
+
     public function hasAlreadyConnectedWith($target_user)
     {
-        return count(Connection::where('owner_id', $this->id)->where('user_id', $target_user->id)->get()) > 0;
+        return Connection::where('owner_id', $this->id)->where('user_id', $target_user->id)->count() > 0;
     }
 
 }

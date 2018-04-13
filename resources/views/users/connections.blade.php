@@ -6,7 +6,7 @@
 
 @section('content')
     Showing {{$user->name}}'s connections:<br> <br>
-    You have {{count($incoming)}} connection(s)!</br> </br>
+    You have {{$incoming->count()}} connection(s)!</br> </br>
     @forelse($incoming as $incoming_user)
         <div class="border border-dark rounded">
             {{$incoming_user->name}}<br>
@@ -20,7 +20,7 @@
         </div>
     @endforelse <br>
 
-    You're offering {{count($outgoing)}} connection(s)! <br><br>
+    You're offering {{$outgoing->count()}} connection(s)! <br><br>
     @forelse($outgoing as $outgoing_user)
         <div class="border border-dark rounded">
             {{$outgoing_user->name}}<br>
