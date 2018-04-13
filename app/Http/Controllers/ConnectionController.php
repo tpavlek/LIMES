@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Connection;
 use Illuminate\Support\Facades\Auth;
-use Responses\App\CreatePostResponse;
+use App\Http\Responses\CreateConnectionResponse;
 
 class ConnectionController extends Controller
 {
@@ -35,6 +35,7 @@ class ConnectionController extends Controller
 
     public function add(Request $request, $id)
     {
+        $response = new CreateConnectionResponse(false, null, []);
 
         try
         {
@@ -42,7 +43,8 @@ class ConnectionController extends Controller
         }
         catch (ModelNotFoundException $e)
         {
-            return new CreatePostResponse(false, null, ["Target user doesn't exist."]);
+            $response->addError("Target user not found, connection not created.");
+            return $response;
         }
 
         //guaranteed by middleware
@@ -51,14 +53,17 @@ class ConnectionController extends Controller
 
         if(Auth::user()->hasAlreadyConnectedWith($to_user))
         {
-            return new CreatePostResponse(false, null, ["User has already connected with this user."]);
+            $response->addError("Connection already made, connection not created.");
         }
-
-        $connection->save();
+        else{
+            $connection->save();
+            $response->success = true;
+            $response->id = $connection->id;
+        }
 
         if ($request->ajax())
         {
-            return new CreatePostResponse(true, $connection->id, []);
+            return $response;
         }
 
         return view('users.connected')

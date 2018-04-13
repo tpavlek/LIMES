@@ -1,20 +1,20 @@
 <?php
 
-namespace Responses\App;
+namespace App\Http\Responses;
 
 use Illuminate\Contracts\Support\Responsable;
 
-class CreatePostResponse implements Responsable{
+class CreateConnectionResponse implements Responsable{
 
-    private $success;
-    private $id;
+    public $success;
+    public $id;
 
     /**
      * @var array
      */
     private $errors;
 
-    public function __construct(Bool $success, Integer $id, Array $errors)
+    public function __construct(Bool $success, $id, Array $errors)
     {
         $this->success = $success;
         $this->id = $id;
