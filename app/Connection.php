@@ -8,6 +8,7 @@ use App\User;
 class Connection extends Model
 {
 
+    protected $fillable = ['user_id', 'owner_id'];
 
     public function user()
     {
