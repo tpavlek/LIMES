@@ -31,4 +31,9 @@ class Post extends Model
         return '/img/posts/' . $this->img_url;
     }
 
+    public function hasAnonymousAuthor()
+    {
+        return $this->author_type == AnonUser::class;
+    }
+
 }

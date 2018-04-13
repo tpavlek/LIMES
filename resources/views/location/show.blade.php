@@ -39,6 +39,13 @@
                     {{ $post->body }}
                 </p>
 
+                @if(!$post->hasAnonymousAuthor())
+                    <form action="{{route('add_connection', ['id' => $post->author->id])}}" method="post">
+                        {{csrf_field()}}
+                        <button type="submit" class="btn bg-blue-light shadow border-2 rounded-full pin-l">Connect with this user.</button>
+                    </form>
+                @endif
+
             </div>
         </div>
     @empty

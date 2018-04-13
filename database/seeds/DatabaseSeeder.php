@@ -15,7 +15,25 @@ class DatabaseSeeder extends Seeder
         $user = \App\User::create([
             'name' => "Troy Pavlek",
             'email' => 'troy@tpavlek.me',
-            'password' => 'green'
+            'password' => 'green',
+            'snapchat' => 'snapchat!handle',
+            'twitter' => '@twitter!handle'
+        ]);
+
+        \App\User::create([
+            'name' => "Cort davidson",
+            'email' => 'cortland.davidson@not.com',
+            'password' => 'blue',
+            'snapchat' => 'snapchat!handle',
+            'twitter' => '@twitter!handle'
+        ]);
+
+        \App\User::create([
+            'name' => "Mr baby",
+            'email' => 'iamacat@cat.com',
+            'password' => 'red',
+            'snapchat' => 'snapchat!handle',
+            'twitter' => '@twitter!handle'
         ]);
 
         $anon_user = \App\AnonUser::create([
