@@ -1,10 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Http\Responses\CreatePostResponse;
 use App\Location;
 use App\Post;
 use App\User;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
@@ -17,10 +20,24 @@ class PostController extends Controller
         return view('posts.create')->with("location", $location);
     }
 
+    /**
+     * @param Request $request
+     * @param $id
+     * @return $this|CreatePostResponse
+     */
     public function store(Request $request, $id)
     {
+        $response = new CreatePostResponse(false, null, []);
 
-        $location = Location::findOrFail($id);
+        try
+        {
+            $location = Location::findOrFail($id);
+        }
+        catch (ModelNotFoundException $e){
+            $response->addError(["Location does not exist"]);
+            return $response;
+        }
+
 
         //validate data ~ TODO: move to configuration file
         $request->validate([
@@ -32,20 +49,26 @@ class PostController extends Controller
         $post = new Post();
         $post->body = $request->input('body');
 
-        //TODO: This should be from session data, the currently authenticated user.
-        //This is placeholder code so that posts can still be added.
-        $post->author_id = 1;
-        $post->author_type = User::class;
+        //TODO: How will this handle anonymous users?
+        $user = Auth::user();
+        $post->author_id = $user->id;
+        $post->author_type = get_class($user);
 
 
         $post->img_url = $request->hasFile('image') ?
             basename($request->file('image')->store('public')) : NULL;
 
         $post->location()->associate( $location );
-
         $post->save();
 
-        //save post to DB
+
+        if ($request->ajax())
+        {
+            $response->id = $post->id;
+            $response->success = true;
+            return $response;
+        }
+
         return view('posts.completed')
             ->with('post', $post);
     }
