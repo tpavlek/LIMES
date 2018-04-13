@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use App\User;
 use App\Connection;
 use Illuminate\Support\Facades\Auth;
+use Responses\App\CreatePostResponse;
 
 class ConnectionController extends Controller
 {
@@ -31,21 +33,32 @@ class ConnectionController extends Controller
             ->with('outgoing', $outgoing);
     }
 
-    public function add($id)
+    public function add(Request $request, $id)
     {
-        $to_user = User::findOrFail($id);
-        $user = Auth::user();
 
-        if($user == null)
+        try
         {
-            return(redirect()->route('login'));
+            $to_user = User::findOrFail($id);
+        }
+        catch (ModelNotFoundException $e)
+        {
+            return new CreatePostResponse(false, null, ["Target user doesn't exist."]);
         }
 
-        $connection = Connection::connect(Auth::user(), $to_user);
+        //guaranteed by middleware
+        $user = Auth::user();
+        $connection = Connection::connect($user, $to_user);
 
-        if(!Auth::user()->hasAlreadyConnectedWith($to_user))
+        if(Auth::user()->hasAlreadyConnectedWith($to_user))
         {
-            $connection->save();
+            return new CreatePostResponse(false, null, ["User has already connected with this user."]);
+        }
+
+        $connection->save();
+
+        if ($request->ajax())
+        {
+            return new CreatePostResponse(true, $connection->id, []);
         }
 
         return view('users.connected')
