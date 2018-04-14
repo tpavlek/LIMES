@@ -44,7 +44,7 @@ class DatabaseSeeder extends Seeder
 
         $location = Location::build('Hazeldean Buddy Bench', [
             'id' => 1,
-            'img_path' => '/hazeldean-buddy-bench.jpg',
+            'img_path' => 'hazeldean-buddy-bench.jpg',
             'description' => "Installed in 2015, this buddy bench brings together Edmontonians in the community for fun times"
         ]);
 
