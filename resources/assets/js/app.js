@@ -17,6 +17,9 @@ window.Vue = require('vue');
 
 Vue.component('hello-form', require('./components/HelloForm.vue'));
 Vue.component('image-upload', require('./components/ImageUpload.vue'));
+Vue.component('opendata-header-retrieve', require('./components/OpendataHeaderRetrieve.vue'));
+Vue.component('opendata-fetch', require('./components/OpendataFetch.vue'));
+Vue.component('opendata-form', require('./components/OpendataForm.vue'));
 
 const app = new Vue({
     el: '#app'

@@ -6,10 +6,9 @@
     @include('errors')
 
     <div class="relative">
-        <div class="h-64 bg-cover bg-center" style='background-image: url("{{ $location->getImage() }}");'></div>
-        <div class="bg-greengrey-lighter border-green-dark shadow border-2 absolute pin-b pin-r mr-8 -mb-6 h-12 w-12 rounded-full text-center inline z-40">
-            <span class="h-12 w-12 text-2xl leading-loose">{{ $location->posts->count() }}</span>
-        </div>
+        @if ($location->hasImage())
+            <div class="h-64 bg-cover bg-center" style='background-image: url("{{ $location->getImage() }}");'></div>
+        @endif
     </div>
 
     <div class="pt-8 border-b border-l border-r shadow mx-4 bg-white px-4 mb-4 relative z-10">
@@ -17,6 +16,9 @@
         <p class="pb-4 leading-loose">
             {{ $location->description }}
         </p>
+        <div class="@if($location->hasImage()) pin-t -mt-6 @else pin-b -mb-6 @endif bg-greengrey-lighter border-green-dark shadow border-2 absolute pin-r mr-8 h-12 w-12 rounded-full text-center inline z-40">
+            <span class="h-12 w-12 text-2xl leading-loose">{{ $location->posts->count() }}</span>
+        </div>
     </div>
 
     <div class="text-center">

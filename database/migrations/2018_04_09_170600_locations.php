@@ -24,7 +24,7 @@ class Locations extends Migration
             $table->string('lat')->nullable()->default(null);
             $table->string('lon')->nullable()->default(null);;
 
-            $table->string('img_path');
+            $table->string('img_path')->nullable()->default(null);
 
             $table->timestamps();
         });

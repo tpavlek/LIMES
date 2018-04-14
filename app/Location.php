@@ -24,6 +24,11 @@ class Location extends Model
         return self::create(array_merge($default_args, $args));
     }
 
+    public function hasImage()
+    {
+        return $this->img_path;
+    }
+
     public function getImage()
     {
         return "/img/" . $this->img_path;

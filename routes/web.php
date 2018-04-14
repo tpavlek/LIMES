@@ -30,6 +30,9 @@ Route::middleware([ 'auth', 'admin' ])->prefix('admin')->group(function() {
 
     Route::get('location/{id}', 'AdminController@showLocation')->name('admin.show_location');
     Route::put('location/{id}', 'AdminController@updateLocation')->name('admin.update_location');
+
+    Route::get('opendata', 'AdminController@showOpendataImport')->name('admin.opendata_import');
+    Route::post('opendata', 'AdminController@fetchOpendata')->name('admin.opendata_fetch');
 });
 
 
