@@ -31,6 +31,29 @@ class AdminController extends Controller
         return view('admin.opendata_import');
     }
 
+    public function updateLocation(Request $request, $id)
+    {
+        $location = Location::findOrfail($id);
+
+
+        if($request->hasFile('image'))
+        {
+            $image = $request->file('image');
+            $path = $id.'.'.$image->getClientOriginalExtension();
+            $image->storeAs('/', $path, 'location_images');
+            $location->img_path = $path;
+        }
+
+        $location->update([
+            'name'=> $request->get('name'),
+            'description' => $request->get('description'),
+            'ref_uuid' => $request->get('ref_uuid'),
+            'lat' => $request->get('lat'),
+            'lon' => $request->get('lon')
+
+        ]);
+    }
+
     public function fetchOpendata(Request $request)
     {
         $formatters = [
@@ -58,7 +81,7 @@ class AdminController extends Controller
                     ->windowSize(1280, 720)
                     ->waitUntilNetworkIdle()
                     ->click('#maparrow')
-                    ->save(public_path() . "/img/$name.jpg");
+                    ->save(public_path() . "/img/locations/$name.jpg");
 
                 $location_data['img_path'] = "$name.jpg";
             }

@@ -58,6 +58,11 @@ return [
             'root' => public_path('img/posts')
         ],
 
+        'location_images'=>[
+            'driver' => 'local',
+            'root' => public_path('img/locations')
+        ],
+
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),

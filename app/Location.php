@@ -31,7 +31,7 @@ class Location extends Model
 
     public function getImage()
     {
-        return "/img/" . $this->img_path;
+        return "/img/locations/" . $this->img_path;
     }
 
     /**
