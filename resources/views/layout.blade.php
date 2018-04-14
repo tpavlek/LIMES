@@ -20,6 +20,11 @@
         </div>
 
         @if(Auth::check())
+            @if (Auth::user()->isAdmin())
+                <div class="text-white p-4">
+                    <a class="text-white no-underline" href="{{ URL::route('admin.index') }}"><span class="fas fa-unlock"></span></a>
+                </div>
+            @endif
             <div class="text-white p-4">
                 <a class="text-white no-underline" href="{{ URL::route('profile') }}"><span class="fas fa-user"></span> Me</a>
             </div>

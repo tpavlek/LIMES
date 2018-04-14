@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Hash;
 
 /**
  * @property bool facebook_connected
+ * @property int id
+ * @property bool is_admin
  */
 class User extends Authenticatable
 {
@@ -37,7 +39,8 @@ class User extends Authenticatable
             'facebook_connected' => true,
         ]);
 
-        \File::put(public_path() . "/img/user/" . $instance->id . ".jpg", file_get_contents($socialite_user->getAvatar()));
+        \File::put(public_path() . "/img/user/" . $instance->id . ".jpg",
+            file_get_contents($socialite_user->getAvatar()));
 
         return $instance;
     }
@@ -58,12 +61,17 @@ class User extends Authenticatable
 
     public function hasNotConnectedFacebook()
     {
-        return ! $this->hasConnectedFacebook();
+        return !$this->hasConnectedFacebook();
     }
 
     public function hasConnectedFacebook()
     {
         return $this->facebook_connected;
+    }
+
+    public function isAdmin()
+    {
+        return $this->is_admin;
     }
 
     public function incomingConnections()
@@ -78,7 +86,9 @@ class User extends Authenticatable
 
     public function hasAlreadyConnectedWith($target_user)
     {
-        return Connection::where('owner_id', $this->id)->where('user_id', $target_user->id)->count() > 0;
+        return Connection::query()
+                ->where('owner_id', $this->id)
+                ->where('user_id', $target_user->id)->count() > 0;
     }
 
 }

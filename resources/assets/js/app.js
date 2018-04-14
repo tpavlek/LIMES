@@ -16,6 +16,7 @@ window.Vue = require('vue');
  */
 
 Vue.component('hello-form', require('./components/HelloForm.vue'));
+Vue.component('image-upload', require('./components/ImageUpload.vue'));
 
 const app = new Vue({
     el: '#app'

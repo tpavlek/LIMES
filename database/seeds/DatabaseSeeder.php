@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             'snapchat' => 'snapchat!handle',
             'twitter' => '@twitter!handle',
             'facebook_connected' => true,
+            'is_admin' => true,
         ]);
 
         \App\User::create([
@@ -29,7 +30,7 @@ class DatabaseSeeder extends Seeder
             'twitter' => '@twitter!handle'
         ]);
 
-        \App\User::create([
+        $mrBaby = \App\User::create([
             'name' => "Mr baby",
             'email' => 'iamacat@cat.com',
             'password' => 'red',
@@ -57,9 +58,9 @@ class DatabaseSeeder extends Seeder
 
         \App\Post::create([
             'location_id' => $location->id,
-            'author_id' => $anon_user->id,
-            'body' => "I don't like buddy benches because I like money",
-            'author_type' => get_class($anon_user),
+            'author_id' => $mrBaby->id,
+            'body' => "I'm a cat where is the catnip",
+            'author_type' => get_class($mrBaby),
         ]);
     }
 }

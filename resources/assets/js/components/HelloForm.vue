@@ -28,12 +28,7 @@
 
                     <textarea class="bg-grey-light p-2 rounded w-full h-32 mb-2" id="body" name="body" title="Write your post..." placeholder="Write your post...">{{ postBody }}</textarea>
 
-                    <label for="image" class="mx-auto mb-2 block w-32 h-32 bg-grey-lighter text-grey border-2 border-grey border-dashed flex flex-col justify-center align-center">
-                        <span v-show="!fileAdded" class="mx-auto p-2 flex-grow"><span class="fas fa-plus text-3xl"></span></span>
-                        <span v-show="!fileAdded" class="p-2 text-xl">Add an Image</span>
-                        <span v-show="fileAdded" class="p-2 text-center"><span class="text-4xl fas fa-check-circle"></span></span>
-                    </label>
-                    <input id="image" name="image" type="file" accept="image/*" class="hidden" @change="changeLabel" />
+                    <image-upload></image-upload>
 
                     <button type="submit" class="bg-green-dark hover:bg-green-darker text-white px-4 py-2 border-green-darkest text-xl leading-loose shadow rounded mb-4">
                         <i class="fas fa-paper-plane"></i> Submit Message
@@ -51,7 +46,6 @@
             return {
                 showingLoginForm: false,
                 showingPostForm: false,
-                fileAdded: false,
             }
         },
         methods: {
@@ -65,9 +59,6 @@
             showPostForm() {
                 this.showingLoginForm = false;
                 this.showingPostForm = true;
-            },
-            changeLabel() {
-                this.fileAdded = true;
             }
         },
         computed: {

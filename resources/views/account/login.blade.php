@@ -8,8 +8,7 @@
         <h2 class="mb-4">Login</h2>
         <form action="{{ URL::route('login') }}" method="post">
             {{ csrf_field() }}
-            <label for="email" class="tracking-wide font-bold text-sm text-grey-dark">EMAIL</label>
-            <input type="text" name="email" id="email" placeholder="email@address.com" class="my-2 bg-grey-light p-2 rounded w-full" value="{{ old('email') }}"/>
+            @include('partials/formfield/text', [ 'name' => 'email', 'placeholder' => "email@address.com" ])
 
             <label for="password" class="tracking-wide font-bold text-sm text-grey-dark">PASSWORD</label>
             <input type="password" name="password" id="password" placeholder="Keep it secret, keep it safe" class="my-2 bg-grey-light p-2 rounded w-full" />

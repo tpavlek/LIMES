@@ -25,3 +25,12 @@ Route::get('fb-callback', 'Auth\LoginController@facebookCallback');
 Route::get('profile', 'HomeController@profile')->middleware('auth')->name('profile');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
+Route::middleware([ 'auth', 'admin' ])->prefix('admin')->group(function() {
+    Route::get('/', 'AdminController@index')->name('admin.index');
+
+    Route::get('location/{id}', 'AdminController@showLocation')->name('admin.show_location');
+    Route::put('location/{id}', 'AdminController@updateLocation')->name('admin.update_location');
+});
+
+
+
