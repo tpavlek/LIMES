@@ -3,6 +3,7 @@
 namespace App\Http\Responses;
 
 use Illuminate\Contracts\Support\Responsable;
+use App\Location;
 
 class CreateConnectionResponse implements Responsable{
 
