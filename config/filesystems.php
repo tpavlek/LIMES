@@ -53,6 +53,11 @@ return [
             'root' => storage_path('app/public/images')
         ],
 
+        'post_images' => [
+            'driver' => 'local',
+            'root' => public_path('img/posts')
+        ],
+
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Http\Requests\CreatePostRequest;
 use App\Http\Responses\CreatePostResponse;
 use App\Location;
 use App\Post;
@@ -21,55 +22,17 @@ class PostController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param CreatePostRequest $request
      * @param $id
      * @return $this|CreatePostResponse
      */
-    public function store(Request $request, $id)
+    public function store(CreatePostRequest $request, $id)
     {
-        $response = new CreatePostResponse(false, null, []);
+        /** @var Location $location */
+        $location = Location::findOrFail($id);
 
-        try
-        {
-            $location = Location::findOrFail($id);
-        }
-        catch (ModelNotFoundException $e){
-            $response->addError(["Location does not exist"]);
-            return $response;
-        }
+        $post = Post::createFromRequest($location, $request);
 
-
-        //validate data ~ TODO: move to configuration file
-        $request->validate([
-            'body' => 'required|max:50000|min:10',
-            'image' => 'max: 2048'
-        ]);
-
-        //create post
-        $post = new Post();
-        $post->body = $request->input('body');
-
-        //TODO: How will this handle anonymous users?
-        $user = Auth::user();
-        $post->author_id = $user->id;
-        $post->author_type = get_class($user);
-
-
-        $post->img_url = $request->hasFile('image') ?
-            basename($request->file('image')->store('public')) : NULL;
-
-        $post->location()->associate( $location );
-        $post->save();
-
-
-        if ($request->ajax())
-        {
-            $response->id = $post->id;
-            $response->success = true;
-            return $response;
-        }
-
-        return view('posts.completed')
-            ->with('post', $post);
+        return new CreatePostResponse($post);
     }
 }

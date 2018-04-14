@@ -15,9 +15,10 @@ class DatabaseSeeder extends Seeder
         $user = \App\User::create([
             'name' => "Troy Pavlek",
             'email' => 'troy@tpavlek.me',
-            'password' => 'green',
+            'password' => Hash::make('green'),
             'snapchat' => 'snapchat!handle',
-            'twitter' => '@twitter!handle'
+            'twitter' => '@twitter!handle',
+            'facebook_connected' => true,
         ]);
 
         \App\User::create([

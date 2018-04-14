@@ -2,38 +2,26 @@
 
 namespace App\Http\Responses;
 
+use App\Post;
 use Illuminate\Contracts\Support\Responsable;
 
 class CreatePostResponse implements Responsable
 {
-    /**
-     * @var integer
-     */
-    public $id;
 
-    /**
-     * @var Boolean
-     */
-    public $success;
+    public $post;
 
-    /**
-     * @var array
-     */
-    public $errors;
-
-    public function __construct(Bool $success, $id, Array $errors)
+    public function __construct(Post $post)
     {
-        $this->success = $success;
-        $this->id = $id;
-        $this->errors = $errors;
+        $this->post = $post;
     }
 
     public function toResponse($request)
     {
-        return response(['success'=> $this->success, 'id' => $this->id, 'errors' => $this->errors]);
-    }
+        if ($request->ajax()) {
+            return response()->json([ 'success' => true, 'post_id' => $this->post->id ]);
+        }
 
-    public function addError($error){
-        array_push($this->errors, $error);
+        return view('posts.completed')
+            ->with('post', $this->post);
     }
 }

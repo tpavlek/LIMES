@@ -47302,9 +47302,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['authenticated', 'postAction', 'accountLink'],
+    props: ['authenticated', 'postAction', 'accountLink', 'postBody'],
     data: function data() {
         return {
             showingLoginForm: false,
@@ -47332,6 +47334,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     computed: {
         showingForm: function showingForm() {
             return this.showingLoginForm || this.showingPostForm;
+        },
+        csrfToken: function csrfToken() {
+            console.log(document.head.querySelector('meta[name="csrf-token"]'));
+            return document.head.querySelector('meta[name="csrf-token"]').content;
         }
     }
 });
@@ -47436,17 +47442,26 @@ var render = function() {
                 }
               },
               [
+                _c("input", {
+                  attrs: { type: "hidden", name: "_token" },
+                  domProps: { value: _vm.csrfToken }
+                }),
+                _vm._v(" "),
                 !_vm.authenticated ? [_vm._m(0)] : _vm._e(),
                 _vm._v(" "),
-                _c("textarea", {
-                  staticClass: "bg-grey-light p-2 rounded w-full h-32 mb-2",
-                  attrs: {
-                    id: "body",
-                    name: "body",
-                    title: "Write your post...",
-                    placeholder: "Write your post..."
-                  }
-                }),
+                _c(
+                  "textarea",
+                  {
+                    staticClass: "bg-grey-light p-2 rounded w-full h-32 mb-2",
+                    attrs: {
+                      id: "body",
+                      name: "body",
+                      title: "Write your post...",
+                      placeholder: "Write your post..."
+                    }
+                  },
+                  [_vm._v(_vm._s(_vm.postBody))]
+                ),
                 _vm._v(" "),
                 _c(
                   "label",
@@ -47512,7 +47527,12 @@ var render = function() {
                 _vm._v(" "),
                 _c("input", {
                   staticClass: "hidden",
-                  attrs: { id: "image", type: "file", accept: "image/*" },
+                  attrs: {
+                    id: "image",
+                    name: "image",
+                    type: "file",
+                    accept: "image/*"
+                  },
                   on: { change: _vm.changeLabel }
                 }),
                 _vm._v(" "),

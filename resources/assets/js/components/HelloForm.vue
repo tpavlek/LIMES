@@ -17,6 +17,8 @@
         <div v-show="showingPostForm">
             <div class="pt-8 border-b border-l border-r shadow mx-4 bg-white px-4 mb-4 relative z-10">
                 <form method="post" :action="postAction" enctype="multipart/form-data">
+                    <input type="hidden" name="_token" :value="csrfToken" />
+
                     <template v-if="!authenticated">
                         <div class="text-left">
                             <label for="display_name" class="tracking-wide font-bold text-sm text-grey-dark">DISPLAY NAME</label>
@@ -24,14 +26,14 @@
                         </div>
                     </template>
 
-                    <textarea class="bg-grey-light p-2 rounded w-full h-32 mb-2" id="body" name="body" title="Write your post..." placeholder="Write your post..."></textarea>
+                    <textarea class="bg-grey-light p-2 rounded w-full h-32 mb-2" id="body" name="body" title="Write your post..." placeholder="Write your post...">{{ postBody }}</textarea>
 
                     <label for="image" class="mx-auto mb-2 block w-32 h-32 bg-grey-lighter text-grey border-2 border-grey border-dashed flex flex-col justify-center align-center">
                         <span v-show="!fileAdded" class="mx-auto p-2 flex-grow"><span class="fas fa-plus text-3xl"></span></span>
                         <span v-show="!fileAdded" class="p-2 text-xl">Add an Image</span>
                         <span v-show="fileAdded" class="p-2 text-center"><span class="text-4xl fas fa-check-circle"></span></span>
                     </label>
-                    <input id="image" type="file" accept="image/*" class="hidden" @change="changeLabel" />
+                    <input id="image" name="image" type="file" accept="image/*" class="hidden" @change="changeLabel" />
 
                     <button type="submit" class="bg-green-dark hover:bg-green-darker text-white px-4 py-2 border-green-darkest text-xl leading-loose shadow rounded mb-4">
                         <i class="fas fa-paper-plane"></i> Submit Message
@@ -44,7 +46,7 @@
 
 <script>
     export default {
-        props: [ 'authenticated', 'postAction', 'accountLink' ],
+        props: [ 'authenticated', 'postAction', 'accountLink', 'postBody' ],
         data() {
             return {
                 showingLoginForm: false,
@@ -71,6 +73,10 @@
         computed: {
             showingForm() {
                 return this.showingLoginForm || this.showingPostForm;
+            },
+            csrfToken() {
+                console.log(document.head.querySelector('meta[name="csrf-token"]'));
+                return document.head.querySelector('meta[name="csrf-token"]').content;
             }
         }
     }

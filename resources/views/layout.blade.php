@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>@yield("title", '')</title>
 
@@ -13,20 +14,27 @@
 </head>
 <body>
 <div id="app" class="h-full w-full bg-greengrey-lighter font-sans">
-    @if (Auth::check())
-        <nav class="bg-green flex shadow">
-            <div class="flex-grow p-4 text-white">
-                <a class="h-full text-white no-underline" href="{{ URL::to('/') }}"><span class="far fa-lemon"></span></a>
-            </div>
+    <nav class="bg-green flex shadow">
+        <div class="flex-grow p-4 text-white">
+            <a class="h-full text-white no-underline" href="{{ URL::to('/') }}"><span class="far fa-lemon"></span></a>
+        </div>
+
+        @if(Auth::check())
             <div class="text-white p-4">
                 <a class="text-white no-underline" href="{{ URL::route('profile') }}"><span class="fas fa-user"></span> Me</a>
             </div>
+        @endif
 
+        @if (Auth::check())
             <div class="text-white p-4">
                 <a class="text-white no-underline " href="{{ URL::route('logout') }}"><span class="fas fa-sign-out-alt"></span></a>
             </div>
-        </nav>
-    @endif
+        @else
+            <div class="text-white p-4">
+                <a class="text-white no-underline " href="{{ URL::route('account_connect') }}"><span class="fas fa-sign-in-alt"></span></a>
+            </div>
+        @endif
+    </nav>
     @yield('content')
 </div>
 

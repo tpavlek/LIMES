@@ -3,6 +3,8 @@
 
 @section('content')
 
+    @include('errors')
+
     <div class="relative">
         <div class="h-64 bg-cover bg-center" style='background-image: url("{{ $location->getImage() }}");'></div>
         <div class="bg-greengrey-lighter border-green-dark shadow border-2 absolute pin-b pin-r mr-8 -mb-6 h-12 w-12 rounded-full text-center inline z-40">
@@ -18,7 +20,7 @@
     </div>
 
     <div class="text-center">
-        <hello-form authenticated="{{ Auth::check() }}" post-action="/#post-route" account-link="{{ URL::route('login', [ 'returnTo' => $location->id ]) }}"></hello-form>
+        <hello-form authenticated="{{ Auth::check() }}" post-action="{{ URL::route('post.store', $location->id) }}" account-link="{{ URL::route('login', [ 'returnTo' => $location->id ]) }}" post-body="{{ old('body') }}"></hello-form>
 
     </div>
 

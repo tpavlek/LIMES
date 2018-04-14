@@ -11,8 +11,8 @@ Route::post('register', 'Auth\RegisterController@register')->name('register');
 
 Route::get('hello/{id}', 'LocationController@show')->name('location');
 
-Route::post('hello/{id}', 'PostController@store');
-Route::get('hello/{id}/new', 'PostController@create')->name('new_post');
+Route::post('hello/{id}', 'PostController@store')->name('post.store');
+Route::get('hello/{id}/new', 'PostController@create')->name('post.create');
 
 
 Route::get('user/{id}/connections', 'ConnectionController@show')->name('connections');
