@@ -1,0 +1,101 @@
+[1mdiff --git a/app/Http/Controllers/AdminController.php b/app/Http/Controllers/AdminController.php[m
+[1mindex db8a0c0..1e0a3e6 100644[m
+[1m--- a/app/Http/Controllers/AdminController.php[m
+[1m+++ b/app/Http/Controllers/AdminController.php[m
+[36m@@ -49,9 +49,13 @@[m [mclass AdminController extends Controller[m
+             'description' => $request->get('description'),[m
+             'ref_uuid' => $request->get('ref_uuid'),[m
+             'lat' => $request->get('lat'),[m
+[31m-            'lon' => $request->get('lon')[m
+[31m-[m
+[32m+[m[32m            'lon' => $request->get('lon'),[m
+[32m+[m[32m            'event_start' => $request->get('event_start'),[m
+[32m+[m[32m            'event_end' => $request->get('event_end'),[m
+[32m+[m[32m            'event_message' => $request->get('event_message')[m
+         ]);[m
+[32m+[m
+[32m+[m[32m        return redirect()->route('location', $id);[m
+     }[m
+ [m
+     public function fetchOpendata(Request $request)[m
+[1mdiff --git a/app/Location.php b/app/Location.php[m
+[1mindex e63eb34..e21a39f 100644[m
+[1m--- a/app/Location.php[m
+[1m+++ b/app/Location.php[m
+[36m@@ -43,6 +43,18 @@[m [mclass Location extends Model[m
+         return self::query()->where('ref_uuid', $uuid)->firstOrFail();[m
+     }[m
+ [m
+[32m+[m[32m    /**[m
+[32m+[m[32m     * @return bool[m
+[32m+[m[32m     */[m
+[32m+[m[32m    public function hasEvent()[m
+[32m+[m[32m    {[m
+[32m+[m[32m        // Passing null into strtotime results in 0 (A date in 1969).[m
+[32m+[m[32m        // For all cases, that provides an acceptable range, so we don't need to check.[m
+[32m+[m
+[32m+[m[32m        return (strtotime($this->event_start) < strtotime('now'))[m
+[32m+[m[32m            && (strtotime('now') < strtotime($this->event_end));[m
+[32m+[m[32m    }[m
+[32m+[m
+     public function posts()[m
+     {[m
+         return $this->hasMany(Post::class);[m
+[1mdiff --git a/database/migrations/2018_04_09_170600_locations.php b/database/migrations/2018_04_09_170600_locations.php[m
+[1mindex 603fdac..2cd5cbb 100644[m
+[1m--- a/database/migrations/2018_04_09_170600_locations.php[m
+[1m+++ b/database/migrations/2018_04_09_170600_locations.php[m
+[36m@@ -20,9 +20,13 @@[m [mclass Locations extends Migration[m
+             $table->unique('ref_uuid');[m
+ [m
+             $table->string('name');[m
+[31m-            $table->string('description')->nullable()->default(null);;[m
+[32m+[m[32m            $table->string('description')->nullable()->default(null);[m
+             $table->string('lat')->nullable()->default(null);[m
+[31m-            $table->string('lon')->nullable()->default(null);;[m
+[32m+[m[32m            $table->string('lon')->nullable()->default(null);[m
+[32m+[m
+[32m+[m[32m            $table->date('event_start')->nullable()->default(null);[m
+[32m+[m[32m            $table->date('event_end')->nullable()->default(null);[m
+[32m+[m[32m            $table->string("event_message")->nullable()->default(null);[m
+ [m
+             $table->string('img_path')->nullable()->default(null);[m
+ [m
+[1mdiff --git a/public/img/locations/1.jpg b/public/img/locations/1.jpg[m
+[1mindex 44b99b1..322bf33 100644[m
+Binary files a/public/img/locations/1.jpg and b/public/img/locations/1.jpg differ
+[1mdiff --git a/resources/views/admin/show_location.blade.php b/resources/views/admin/show_location.blade.php[m
+[1mindex f2b3d15..85d3c6d 100644[m
+[1m--- a/resources/views/admin/show_location.blade.php[m
+[1m+++ b/resources/views/admin/show_location.blade.php[m
+[36m@@ -16,6 +16,14 @@[m
+ [m
+             @include('partials/formfield/text', [ 'name' => 'lon', 'display_name'=> 'longitude', 'value' => $location->lon ])[m
+ [m
+[32m+[m[32m            @if($location->hasEvent()) There is currently an event going on! Details: @else There is no current event! Next event: @endif <br>[m
+[32m+[m[32m            Enter the start date:[m
+[32m+[m[32m            <input type="date" name="event_start" min={{date("Y-m-d")}} value={{$location->event_start}}> <br>[m
+[32m+[m[32m            Enter the end date:[m
+[32m+[m[32m            <input type="date" name="event_end" min={{date("Y-m-d")}} value={{$location->event_end}}> <br>[m
+[32m+[m
+[32m+[m[32m            <textarea class="bg-grey-light p-2 rounded w-full h-32 mb-2" id="event_message" name="event_message" title="Event Message" placeholder="Event Message">{{ $location->event_message }}</textarea>[m
+[32m+[m
+             <image-upload></image-upload>[m
+ [m
+             <button type="submit" class="bg-green-dark text-white px-4 py-2 mx-auto border-blue-darkest leading-loose shadow rounded mb-4">[m
+[1mdiff --git a/resources/views/location/show.blade.php b/resources/views/location/show.blade.php[m
+[1mindex 386ffde..ab78259 100644[m
+[1m--- a/resources/views/location/show.blade.php[m
+[1m+++ b/resources/views/location/show.blade.php[m
+[36m@@ -5,6 +5,11 @@[m
+ [m
+     @include('errors')[m
+ [m
+[32m+[m[32m    @if($location->hasEvent())[m
+[32m+[m[32m        <div class="pt-8 border-b border-l border-r shadow mx-4 bg-blue-light px-4 mb-4 relative z-10">[m
+[32m+[m[32m        Event happening now: {{$location->event_message}}[m
+[32m+[m[32m        </div>[m
+[32m+[m[32m    @endif[m
+     <div class="relative">[m
+         @if ($location->hasImage())[m
+             <div class="h-64 bg-cover bg-center" style='background-image: url("{{ $location->getImage() }}");'></div>[m

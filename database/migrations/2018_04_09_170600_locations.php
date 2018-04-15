@@ -20,9 +20,13 @@ class Locations extends Migration
             $table->unique('ref_uuid');
 
             $table->string('name');
-            $table->string('description')->nullable()->default(null);;
+            $table->string('description')->nullable()->default(null);
             $table->string('lat')->nullable()->default(null);
-            $table->string('lon')->nullable()->default(null);;
+            $table->string('lon')->nullable()->default(null);
+
+            $table->date('event_start')->nullable()->default(null);
+            $table->date('event_end')->nullable()->default(null);
+            $table->string("event_message")->nullable()->default(null);
 
             $table->string('img_path')->nullable()->default(null);
 

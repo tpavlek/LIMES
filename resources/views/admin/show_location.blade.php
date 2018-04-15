@@ -16,6 +16,14 @@
 
             @include('partials/formfield/text', [ 'name' => 'lon', 'display_name'=> 'longitude', 'value' => $location->lon ])
 
+            @if($location->hasEvent()) There is currently an event going on! Details: @else There is no current event! Next event: @endif <br>
+            Enter the start date:
+            <input type="date" name="event_start" min={{date("Y-m-d")}} value={{$location->event_start}}> <br>
+            Enter the end date:
+            <input type="date" name="event_end" min={{date("Y-m-d")}} value={{$location->event_end}}> <br>
+
+            <textarea class="bg-grey-light p-2 rounded w-full h-32 mb-2" id="event_message" name="event_message" title="Event Message" placeholder="Event Message">{{ $location->event_message }}</textarea>
+
             <image-upload></image-upload>
 
             <button type="submit" class="bg-green-dark text-white px-4 py-2 mx-auto border-blue-darkest leading-loose shadow rounded mb-4">

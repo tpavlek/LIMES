@@ -43,6 +43,18 @@ class Location extends Model
         return self::query()->where('ref_uuid', $uuid)->firstOrFail();
     }
 
+    /**
+     * @return bool
+     */
+    public function hasEvent()
+    {
+        // Passing null into strtotime results in 0 (A date in 1969).
+        // For all cases, that provides an acceptable range, so we don't need to check.
+
+        return (strtotime($this->event_start) < strtotime('now'))
+            && (strtotime('now') < strtotime($this->event_end));
+    }
+
     public function posts()
     {
         return $this->hasMany(Post::class);

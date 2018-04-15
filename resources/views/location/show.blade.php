@@ -5,6 +5,11 @@
 
     @include('errors')
 
+    @if($location->hasEvent())
+        <div class="pt-8 border-b border-l border-r shadow mx-4 bg-blue-light px-4 mb-4 relative z-10">
+        Event happening now: {{$location->event_message}}
+        </div>
+    @endif
     <div class="relative">
         @if ($location->hasImage())
             <div class="h-64 bg-cover bg-center" style='background-image: url("{{ $location->getImage() }}");'></div>
