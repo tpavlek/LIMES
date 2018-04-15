@@ -71,12 +71,18 @@ class ConnectionController extends Controller
             ->with('user_name', $to_user->name);
     }
 
+    public function accept($id)
+    {
+        Connection::findOrFail($id)->update([ 'accepted' => true ]);
+
+        return redirect()->route('profile');
+    }
+
     public function remove($id)
     {
-        $to_user = User::findOrFail($id);
-        Connection::disconnect(Auth::user(), $to_user);
-        return view('users.disconnected')
-            ->with('user_name', $to_user->name);
+        Connection::findOrFail($id)->delete();
+
+        return redirect()->route('profile');
     }
 
 }

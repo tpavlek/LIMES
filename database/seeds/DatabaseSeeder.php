@@ -24,22 +24,22 @@ class DatabaseSeeder extends Seeder
 
         \App\User::create([
             'name' => "Cort davidson",
-            'email' => 'cortland.davidson@not.com',
-            'password' => 'blue',
+            'email' => 'cort@limes.com',
+            'password' => Hash::make('green'),
             'snapchat' => 'snapchat!handle',
             'twitter' => '@twitter!handle'
         ]);
 
         $mrBaby = \App\User::create([
             'name' => "Mr baby",
-            'email' => 'iamacat@cat.com',
-            'password' => 'red',
+            'email' => 'cat@limes.com',
+            'password' => Hash::make('green'),
             'snapchat' => 'snapchat!handle',
             'twitter' => '@twitter!handle'
         ]);
 
         $anon_user = \App\AnonUser::create([
-            'name' => "Mike Nickel",
+            'name' => "John Smith",
         ]);
 
         $location = Location::build('Hazeldean Buddy Bench', [

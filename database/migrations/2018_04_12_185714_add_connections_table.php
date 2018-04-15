@@ -17,6 +17,8 @@ class AddConnectionsTable extends Migration
             $table->increments("id");
             $table->unsignedInteger('owner_id');
             $table->unsignedInteger('user_id');
+
+            $table->boolean('accepted')->default(false);
             $table->timestamps();
         });
     }

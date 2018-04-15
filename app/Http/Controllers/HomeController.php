@@ -21,4 +21,9 @@ class HomeController
             ->with('locations', $locations);
     }
 
+    public function profile()
+    {
+        return view('profile')->with('user', \Auth::user());
+    }
+
 }
