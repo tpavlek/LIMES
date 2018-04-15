@@ -92,7 +92,7 @@ class User extends Authenticatable
 
     public function hasUnreadConnections()
     {
-        return $this->unreadIncomingConnections()->count();
+        return $this->incoming_connections()->wherePivot('accepted', false)->count();
     }
 
     public function unreadIncomingConnections()

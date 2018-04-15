@@ -73,7 +73,10 @@ class ConnectionController extends Controller
 
     public function accept($id)
     {
-        Connection::findOrFail($id)->update([ 'accepted' => true ]);
+        $connection = Connection::findOrFail($id);
+
+        $connection->accepted = true;
+        $connection->save();
 
         return redirect()->route('profile');
     }
