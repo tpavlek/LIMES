@@ -42,9 +42,26 @@
         @endif
     </nav>
     @yield('content')
+
+    <footer class="text-center mt-8 p-2 bg-green text-white">
+        <div class="text-5xl">
+            <span class="far fa-lemon"></span>
+        </div>
+        <div class="leading-loose">
+            <p class="text-xl">
+                Location Integrated Messaging and Experience Service (LIMES)
+            </p>
+
+            <p class="text-small text-grey-lightest">
+                &copy; Brainy Boys Broaching Big Ideas Based on Urban Betterment
+            </p>
+
+        </div>
+    </footer>
 </div>
 
 
 <script src="/js/app.js"></script>
+@yield('scripts', '')
 </body>
 </html>
