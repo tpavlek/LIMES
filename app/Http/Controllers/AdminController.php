@@ -49,9 +49,13 @@ class AdminController extends Controller
             'description' => $request->get('description'),
             'ref_uuid' => $request->get('ref_uuid'),
             'lat' => $request->get('lat'),
-            'lon' => $request->get('lon')
-
+            'lon' => $request->get('lon'),
+            'event_start' => $request->get('event_start'),
+            'event_end' => $request->get('event_end'),
+            'event_message' => $request->get('event_message')
         ]);
+
+        return redirect()->route('location', $id);
     }
 
     public function fetchOpendata(Request $request)
