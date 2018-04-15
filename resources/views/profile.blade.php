@@ -4,6 +4,29 @@
 @section('content')
     <div class="p-2 border-t border-l border-r mx-4 bg-white px-4 relative z-10 mt-2 rounded-t">
         <h2 class="text-grey-darkest">{{ $user->name }}</h2>
+        Hi, {{$user->name}}! <br>
+        You can edit your contact details below: <br> <br>
+        <form action="{{null}}" enctype="multipart/form-data" method="post">
+            @csrf
+
+            @include('partials/formfield/text', [ 'name' => 'email', 'display_name'=> 'e-mail address', 'value' => $user->email ])
+            @include('partials/formfield/text', [ 'name' => 'twitter', 'display_name'=> 'twitter handle', 'value' => $user->twitter ])
+            @include('partials/formfield/text', [ 'name' => 'snapchat', 'display_name'=> 'snapchat', 'value' => $user->snapchat ])
+
+            @if($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
+            <button type="submit"
+                    class="bg-green-dark text-white px-4 py-2 mx-auto border-blue-darkest leading-loose shadow rounded mb-4">
+                <i class="fas fa-save"></i> Save </button>
+        </form>
     </div>
     <div class="p-4 bg-yellow-lighter text-grey-darkest">
         <h3><span class="fas fa-link"></span> Your Connections</h3>

@@ -26,4 +26,21 @@ class HomeController
         return view('profile')->with('user', \Auth::user());
     }
 
+    public function save_profile(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'snapchat' => 'nullable',
+            'twitter' => 'nullable'
+        ]);
+
+        $user = \Auth::user();
+        $user->email = $request->get('email');
+        $user->snapchat = $request->get('snapchat');
+        $user->twitter = $request->get('twitter');
+        $user->save();
+
+        return view('profile')->with('user', \Auth::user());
+    }
+
 }

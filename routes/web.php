@@ -26,6 +26,7 @@ Route::get('fb-redirect', 'Auth\LoginController@redirectToFacebook')->name('fb-r
 Route::get('fb-callback', 'Auth\LoginController@facebookCallback');
 
 Route::get('profile', 'HomeController@profile')->middleware('auth')->name('profile');
+Route::post('profile', 'HomeController@save_profile')->middleware('auth')->name('save_profile');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 Route::middleware([ 'auth', 'admin' ])->prefix('admin')->group(function() {
