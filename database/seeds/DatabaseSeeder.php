@@ -42,8 +42,10 @@ class DatabaseSeeder extends Seeder
             'name' => "John Smith",
         ]);
 
-        $location = Location::build('Hazeldean Buddy Bench', [
+        $hazeldean_buddy = Location::create([
             'id' => 1,
+            'name' => 'Hazeldean Buddy Bench',
+            'ref_uuid' => '97852f2b-5db2-4a0a-a3df-be0e44f48bb1',
             'img_path' => 'hazeldean-buddy-bench.jpg',
             'description' => "Installed in 2015, this buddy bench brings together Edmontonians in the community for fun times",
             'lat' => '53.5038189',
@@ -51,7 +53,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         \App\Post::create([
-            'location_id' => $location->id,
+            'location_id' => $hazeldean_buddy->id,
             'author_id' => $user->id,
             'body' => "I really like this buddy bench because it's all rainbow and cool WOW I LOVE COKE!",
             'img_url' => 'astley.jpg',
@@ -59,10 +61,17 @@ class DatabaseSeeder extends Seeder
         ]);
 
         \App\Post::create([
-            'location_id' => $location->id,
+            'location_id' => $hazeldean_buddy->id,
             'author_id' => $mrBaby->id,
             'body' => "I'm a cat where is the catnip",
             'author_type' => get_class($mrBaby),
+        ]);
+
+        \App\Post::create([
+            'location_id' => $hazeldean_buddy->id,
+            'author_id' => $anon_user->id,
+            'body' => "I value my privacy, friends",
+            'author_type' => get_class($anon_user),
         ]);
     }
 }
