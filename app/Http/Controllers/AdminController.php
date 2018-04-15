@@ -60,6 +60,13 @@ class AdminController extends Controller
 
     public function fetchOpendata(Request $request)
     {
+        $response = (new Client([ 'defaults' => [ 'headers' => [ 'X-App-Token' => getenv("SOCRATA_API_KEY") ] ] ]))
+            ->request('GET', $request->get('socrata_url'), [ 'query' => [ '$select' => "count(*)" ]]);
+
+        $total_records = json_decode($response->getBody()->__toString(), true)[0]['count'];
+
+        $start = random_int(0, $total_records - $request->get('num_records'));
+
         $formatters = [
             new FormatField($request->get('name_name'), 'name'),
             new FormatField($request->get('description_name'), 'description'),
@@ -68,7 +75,7 @@ class AdminController extends Controller
         ];
 
         $params = [
-            'query' => [ '$limit' => $request->get('num_records') ],
+            'query' => [ '$limit' => $request->get('num_records'), '$offset' => $start ],
         ];
 
         $response = (new Client([ 'defaults' => [ 'headers' => [ 'X-App-Token' => getenv("SOCRATA_API_KEY") ] ] ]))

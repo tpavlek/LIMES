@@ -14,6 +14,11 @@ class Location extends Model
 
     protected $guarded = [];
 
+    protected $casts = [
+        'event_start' => 'date',
+        'event_end' => 'date'
+    ];
+
     public static function build($name, array $args = [])
     {
         $default_args = [

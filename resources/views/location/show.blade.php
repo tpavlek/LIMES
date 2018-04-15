@@ -5,11 +5,6 @@
 
     @include('errors')
 
-    @if($location->hasEvent())
-        <div class="pt-8 border-b border-l border-r shadow mx-4 bg-blue-light px-4 mb-4 relative z-10">
-        Event happening now: {{$location->event_message}}
-        </div>
-    @endif
     <div class="relative">
         @if ($location->hasImage())
             <div class="h-64 bg-cover bg-center" style='background-image: url("{{ $location->getImage() }}");'></div>
@@ -21,9 +16,24 @@
         <p class="pb-4 leading-loose">
             {{ $location->description }}
         </p>
-        <div class="@if($location->hasImage()) pin-t -mt-6 @else pin-b -mb-6 @endif bg-greengrey-lighter border-green-dark shadow border-2 absolute pin-r mr-8 h-12 w-12 rounded-full text-center inline z-40">
+        @if ($location->hasEvent())
+            <div title="An event is ongoing!" class="@if($location->hasImage()) pin-t -mt-6 @else pin-b -mb-6 @endif text-grey-darkest bg-yellow-lighter border-green-dark shadow border-2 absolute pin-r h-12 w-12 rounded-full text-center inline z-40" style="margin-right: 6em;">
+                <span class="h-12 w-12 text-2xl leading-loose"><span class="fas fa-star"></span></span>
+            </div>
+        @endif
+        <div class="@if($location->hasImage()) pin-t -mt-6 @else pin-b -mb-6 @endif text-grey-darkest bg-greengrey-lighter border-green-dark shadow border-2 absolute pin-r mr-8 h-12 w-12 rounded-full text-center inline z-40">
             <span class="h-12 w-12 text-2xl leading-loose">{{ $location->posts->count() }}</span>
         </div>
+
+        @if($location->hasEvent())
+            <div class="-mx-4 bg-yellow-lightest text-grey-darkest p-4">
+                <h3 class=""><span class="fas fa-star"></span> An event is ongoing!</h3>
+                <p class="py-2">
+                    {{ $location->event_message }}
+                </p>
+                Until {{ $location->event_end->toDateString() }}
+            </div>
+        @endif
     </div>
 
     <div class="text-center">
@@ -31,7 +41,7 @@
 
     </div>
 
-    @forelse($location->posts as $post)
+    @foreach($location->posts as $post)
         <div class="mx-4">
             <div class="relative">
 
@@ -48,16 +58,16 @@
                     {{ $post->body }}
                 </p>
 
-                @if(!$post->hasAnonymousAuthor())
-                    <form action="{{route('add_connection', ['id' => $post->author->id])}}" method="post">
-                        {{csrf_field()}}
-                        <button type="submit" class="btn bg-blue-light shadow border-2 rounded-full pin-l">Connect with this user.</button>
-                    </form>
+                @if($post->isConnectable())
+                    <div class="text-right">
+                        <form action="{{route('add_connection', ['id' => $post->author->id])}}" method="post">
+                            {{csrf_field()}}
+                            <button type="submit" class="text-grey-darker p-2 border-l border-t rounded shadow"><span class="fas fa-link"></span></button>
+                        </form>
+                    </div>
                 @endif
 
             </div>
         </div>
-    @empty
-        <span class="text-2xl">No one has said hello yet!</span>
-    @endforelse
+    @endforeach
 @stop

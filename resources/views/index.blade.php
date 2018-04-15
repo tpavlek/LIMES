@@ -8,16 +8,7 @@
     <div id="map" class="w-full h-64"></div>
 
     @foreach($locations as $location)
-        <a class="block h-16 bg-white border-b flex no-underline" href="https://www.google.com/maps/place/{{ $location->lat }},{{ $location->lon }}">
-            <div class="inline-block w-1/4 bg-cover bg-center h-full" style='background-image: url("{{ $location->getImage() }}");'>
-            </div>
-            <div class="inline-block text-grey-darkest flex-grow h-full p-2">
-                <h3 class="pb-2">{{ $location->name }}</h3>
-                <div class="">
-                    <span class="text-grey-dark text-small font-bold"><i class="fas fa-comment"></i> &nbsp; {{ $location->posts()->count() }}</span>
-                </div>
-            </div>
-        </a>
+        @include('partials.location_summary')
     @endforeach
 
 @stop
