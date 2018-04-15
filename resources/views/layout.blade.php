@@ -26,8 +26,11 @@
                     <a class="text-white no-underline" href="{{ URL::route('admin.index') }}"><span class="fas fa-unlock"></span></a>
                 </div>
             @endif
-            <div class="text-white p-4">
+            <div class="text-white p-4 relative">
                 <a class="text-white no-underline" href="{{ URL::route('profile') }}"><span class="fas fa-user"></span> Me</a>
+                @if (Auth::user()->hasUnreadConnections())
+                    <div class="absolute rounded-full bg-red text-white pin-b pin-r w-4 h-4 mb-1 border border-white text-xs text-center">{{ Auth::user()->unreadIncomingConnections()->count() }}</div>
+                @endif
             </div>
         @endif
 

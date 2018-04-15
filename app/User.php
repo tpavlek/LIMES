@@ -65,6 +65,16 @@ class User extends Authenticatable
         return "https://www.gravatar.com/avatar/" . md5(strtolower($this->email));
     }
 
+    public function outgoing_connections()
+    {
+        return $this->belongsToMany(User::class, 'connections', 'owner_id', 'user_id')->withPivot([ 'id', 'accepted' ]);
+    }
+
+    public function incoming_connections()
+    {
+        return $this->belongsToMany(User::class, 'connections', 'user_id', 'owner_id')->withPivot([ 'id', 'accepted' ]);
+    }
+
     public function hasNotConnectedFacebook()
     {
         return !$this->hasConnectedFacebook();
@@ -78,6 +88,21 @@ class User extends Authenticatable
     public function isAdmin()
     {
         return $this->is_admin;
+    }
+
+    public function hasUnreadConnections()
+    {
+        return $this->unreadIncomingConnections()->count();
+    }
+
+    public function unreadIncomingConnections()
+    {
+        return $this->incomingConnections()->where('accepted', false);
+    }
+
+    public function acceptedIncomingConnections()
+    {
+        return $this->incomingConnections()->where('accepted', true);
     }
 
     public function incomingConnections()
