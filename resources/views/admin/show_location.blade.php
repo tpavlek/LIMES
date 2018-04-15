@@ -46,6 +46,7 @@
             <textarea class="bg-grey-light p-2 rounded w-full h-32 mb-2" id="event_message" name="event_message"
                       title="Event Message" placeholder="Event Message">{{ $location->event_message }}</textarea>
 
+            @include('errors')
             <hr class="border-t"/>
 
             <button type="submit"
