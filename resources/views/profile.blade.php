@@ -12,6 +12,7 @@
             @include('partials/formfield/text', [ 'name' => 'email', 'display_name'=> 'e-mail address', 'value' => $user->email ])
             @include('partials/formfield/text', [ 'name' => 'twitter', 'display_name'=> 'twitter handle', 'value' => $user->twitter ])
             @include('partials/formfield/text', [ 'name' => 'snapchat', 'display_name'=> 'snapchat', 'value' => $user->snapchat ])
+            @include('partials/formfield/text', [ 'name' => 'facebook', 'value' => $user->facebook ])
 
             @if($errors->any())
                 <div class="alert alert-danger">
