@@ -13,7 +13,7 @@
     <div class="p-2 border-t border-l border-r mx-4 bg-white px-4 relative z-10 mt-2 rounded-top leading-loose">
         <h2 class="text-grey-darkest">Post Created!</h2>
         <p>
-            Thanks for using Edmonton's Location Integrated Messaging and Experience Service!
+            Thanks for using Edmonton's <strong>L</strong>ocation <strong>I</strong>ntegrated <strong>M</strong>essaging and <strong>E</strong>xperience <strong>S</strong>ervice!
         </p>
         <p>
             Your post will appear shortly, and will look a little something like this:

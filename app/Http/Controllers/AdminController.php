@@ -94,6 +94,10 @@ class AdminController extends Controller
                     ->click('#maparrow')
                     ->save(public_path() . "/img/locations/$name.jpg");
 
+                \Image::make(public_path() . "/img/locations/$name.jpg")
+                    ->crop(1000, 500)
+                    ->save(public_path() . "/img/locations/$name.jpg");
+
                 $location_data['img_path'] = "$name.jpg";
             }
 
