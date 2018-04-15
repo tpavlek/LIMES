@@ -6,7 +6,7 @@
         <h2 class="text-grey-darkest">{{ $user->name }}</h2>
         Hi, {{$user->name}}! <br>
         You can edit your contact details below: <br> <br>
-        <form action="{{null}}" enctype="multipart/form-data" method="post">
+        <form action="{{ URL::route('save_profile') }}" enctype="multipart/form-data" method="post">
             @csrf
 
             @include('partials/formfield/text', [ 'name' => 'email', 'display_name'=> 'e-mail address', 'value' => $user->email ])

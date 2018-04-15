@@ -31,13 +31,15 @@ class HomeController
         $request->validate([
             'email' => 'required|email',
             'snapchat' => 'nullable',
-            'twitter' => 'nullable'
+            'twitter' => 'nullable',
+            'facebook' => 'nullable'
         ]);
 
         $user = \Auth::user();
         $user->email = $request->get('email');
         $user->snapchat = $request->get('snapchat');
         $user->twitter = $request->get('twitter');
+        $user->facebook = $request->get('facebook');
         $user->save();
 
         return view('profile')->with('user', \Auth::user());
