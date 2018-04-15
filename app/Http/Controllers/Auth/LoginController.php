@@ -67,6 +67,8 @@ class LoginController extends Controller
                 return redirect()->route('account_connect')->withErrors([ 'login' => "That email is already registered with a password, please login using your password"]);
             }
 
+            $existing->reloadFacebookAvatar($user);
+
             \Auth::login($existing);
             return redirect()->intended($this->redirectTo);
         }

@@ -49,13 +49,24 @@ class AdminController extends Controller
             'description' => $request->get('description'),
             'ref_uuid' => $request->get('ref_uuid'),
             'lat' => $request->get('lat'),
-            'lon' => $request->get('lon')
-
+            'lon' => $request->get('lon'),
+            'event_start' => $request->get('event_start'),
+            'event_end' => $request->get('event_end'),
+            'event_message' => $request->get('event_message')
         ]);
+
+        return redirect()->route('location', $id);
     }
 
     public function fetchOpendata(Request $request)
     {
+        $response = (new Client([ 'defaults' => [ 'headers' => [ 'X-App-Token' => getenv("SOCRATA_API_KEY") ] ] ]))
+            ->request('GET', $request->get('socrata_url'), [ 'query' => [ '$select' => "count(*)" ]]);
+
+        $total_records = json_decode($response->getBody()->__toString(), true)[0]['count'];
+
+        $start = random_int(0, $total_records - $request->get('num_records'));
+
         $formatters = [
             new FormatField($request->get('name_name'), 'name'),
             new FormatField($request->get('description_name'), 'description'),
@@ -64,7 +75,7 @@ class AdminController extends Controller
         ];
 
         $params = [
-            'query' => [ '$limit' => $request->get('num_records') ],
+            'query' => [ '$limit' => $request->get('num_records'), '$offset' => $start ],
         ];
 
         $response = (new Client([ 'defaults' => [ 'headers' => [ 'X-App-Token' => getenv("SOCRATA_API_KEY") ] ] ]))
@@ -81,6 +92,10 @@ class AdminController extends Controller
                     ->windowSize(1280, 720)
                     ->waitUntilNetworkIdle()
                     ->click('#maparrow')
+                    ->save(public_path() . "/img/locations/$name.jpg");
+
+                \Image::make(public_path() . "/img/locations/$name.jpg")
+                    ->crop(1000, 500)
                     ->save(public_path() . "/img/locations/$name.jpg");
 
                 $location_data['img_path'] = "$name.jpg";

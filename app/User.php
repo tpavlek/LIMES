@@ -6,6 +6,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\URL;
 
 /**
  * @property bool facebook_connected
@@ -39,10 +40,15 @@ class User extends Authenticatable
             'facebook_connected' => true,
         ]);
 
-        \File::put(public_path() . "/img/user/" . $instance->id . ".jpg",
-            file_get_contents($socialite_user->getAvatar()));
+        $instance->reloadFacebookAvatar($socialite_user);
 
         return $instance;
+    }
+
+    public function reloadFacebookAvatar($socialite_user)
+    {
+        \File::put(public_path() . "/img/user/" . $this->id . ".jpg",
+            file_get_contents($socialite_user->getAvatar()));
     }
 
     public function posts()

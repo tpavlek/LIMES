@@ -18,8 +18,9 @@ class Post extends Model
     public static function createFromRequest(Location $location, CreatePostRequest $request)
     {
         $filename = Storage::disk('post_images')->putFile('', $request->file('image'));
-        $img_url = $request->hasFile('image') ? $filename : NULL;
-        $user = \Auth::check() ? \Auth::user() : AnonUser::fromNameAndIp($request->get('name'), $request->getClientIp());
+        $img_url = $request->hasFile('image') ? $filename : null;
+        $user = \Auth::check() ? \Auth::user() : AnonUser::fromNameAndIp($request->get('name'),
+            $request->getClientIp());
 
         return self::create([
             'body' => $request->get('body'),
@@ -53,6 +54,23 @@ class Post extends Model
     public function hasAnonymousAuthor()
     {
         return $this->author_type == AnonUser::class;
+    }
+
+    public function isConnectable()
+    {
+        if (!\Auth::check()) {
+            return false;
+        }
+
+        if ($this->hasAnonymousAuthor()) {
+            return false;
+        }
+
+        if ($this->author->id == \Auth::user()->id) {
+            return false;
+        }
+
+        return true;
     }
 
 }

@@ -10,10 +10,15 @@ class HomeController
 
     public function index()
     {
-        $locations = Location::all()
-            ->map(function($location){ return [$location->name, $location->lat, $location->lon];});
+        $locations = Location::all()->shuffle();
 
-        return view('index')->with("locations", json_encode($locations));
+        $json_locations = $locations->map(function ($location) {
+            return [ $location->name, $location->lat, $location->lon ];
+        })->toJson();
+
+        return view('index')
+            ->with("json_locations", $json_locations)
+            ->with('locations', $locations);
     }
 
 }

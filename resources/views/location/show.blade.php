@@ -16,9 +16,24 @@
         <p class="pb-4 leading-loose">
             {{ $location->description }}
         </p>
-        <div class="@if($location->hasImage()) pin-t -mt-6 @else pin-b -mb-6 @endif bg-greengrey-lighter border-green-dark shadow border-2 absolute pin-r mr-8 h-12 w-12 rounded-full text-center inline z-40">
+        @if ($location->hasEvent())
+            <div title="An event is ongoing!" class="@if($location->hasImage()) pin-t -mt-6 @else pin-b -mb-6 @endif text-grey-darkest bg-yellow-lighter border-green-dark shadow border-2 absolute pin-r h-12 w-12 rounded-full text-center inline z-40" style="margin-right: 6em;">
+                <span class="h-12 w-12 text-2xl leading-loose"><span class="fas fa-star"></span></span>
+            </div>
+        @endif
+        <div class="@if($location->hasImage()) pin-t -mt-6 @else pin-b -mb-6 @endif text-grey-darkest bg-greengrey-lighter border-green-dark shadow border-2 absolute pin-r mr-8 h-12 w-12 rounded-full text-center inline z-40">
             <span class="h-12 w-12 text-2xl leading-loose">{{ $location->posts->count() }}</span>
         </div>
+
+        @if($location->hasEvent())
+            <div class="-mx-4 bg-yellow-lightest text-grey-darkest p-4">
+                <h3 class=""><span class="fas fa-star"></span> An event is ongoing!</h3>
+                <p class="py-2">
+                    {{ $location->event_message }}
+                </p>
+                Until {{ $location->event_end->toDateString() }}
+            </div>
+        @endif
     </div>
 
     <div class="text-center">
@@ -26,33 +41,7 @@
 
     </div>
 
-    @forelse($location->posts as $post)
-        <div class="mx-4">
-            <div class="relative">
-
-                @if ($post->hasImage())
-                    <div class="h-64 bg-cover bg-center" style='background-image: url("{{ $post->getImage() }}");'></div>
-                @endif
-                    <div class="@if($post->hasImage()) pin-b -mb-8 @else pin-t -mt-6 @endif border-green-dark shadow border-2 absolute pin-l ml-4 h-16 w-16 rounded-full text-center inline z-40 bg-center bg-cover" style='background-image: url("{{ $post->author->getImage() }}");'>
-                    </div>
-            </div>
-
-            <div class="border-b border-l border-r shadow bg-white mb-8 z-10">
-                <div class="pt-2 text-sm font-bold tracking-wide text-grey-darker" style="margin-left:6rem;">{{ strtoupper($post->author->name) }}</div>
-                <p class="p-4 text-left leading-loose">
-                    {{ $post->body }}
-                </p>
-
-                @if(!$post->hasAnonymousAuthor())
-                    <form action="{{route('add_connection', ['id' => $post->author->id])}}" method="post">
-                        {{csrf_field()}}
-                        <button type="submit" class="btn bg-blue-light shadow border-2 rounded-full pin-l">Connect with this user.</button>
-                    </form>
-                @endif
-
-            </div>
-        </div>
-    @empty
-        <span class="text-2xl">No one has said hello yet!</span>
-    @endforelse
+    @foreach($location->posts as $post)
+        @include('partials.post')
+    @endforeach
 @stop
