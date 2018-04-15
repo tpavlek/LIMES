@@ -17,21 +17,6 @@ class ConnectionController extends Controller
         $this->middleware('auth');
     }
 
-    public function show($id)
-    {
-        /**
-         * @var User
-         */
-        $user = User::findOrFail($id);
-
-        $incoming = $user->incomingConnections();
-        $outgoing = $user->outgoingConnections();
-
-        return view('users.connections')
-            ->with('user', $user)
-            ->with('incoming', $incoming)
-            ->with('outgoing', $outgoing);
-    }
 
     public function add(Request $request, $id)
     {
