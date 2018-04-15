@@ -35,4 +35,5 @@ class PostController extends Controller
 
         return new CreatePostResponse($post);
     }
+
 }
