@@ -38,7 +38,7 @@ return [
     'facebook' => [
         'client_id' => env('FACEBOOK_CLIENT_ID'),
         'client_secret' => env('FACEBOOK_CLIENT_SECRET'),
-        'redirect' => 'https://limes.test/fb-callback',
+        'redirect' => env('FB_CALLBACK_URL', 'https://limes.tpavlek.me/fb-callback')
     ],
 
 ];
