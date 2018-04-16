@@ -28,7 +28,7 @@
         @if($location->hasEvent())
             <div class="-mx-4 bg-yellow-lightest text-grey-darkest p-4">
                 <h3 class=""><span class="fas fa-star"></span> An event is ongoing!</h3>
-                <p class="py-2">
+                <p class="py-2 leading-loose">
                     {{ $location->event_message }}
                 </p>
                 Until {{ $location->event_end->toDateString() }}
