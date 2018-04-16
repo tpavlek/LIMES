@@ -37,7 +37,7 @@ class AdminController extends Controller
         $location = Location::findOrfail($id);
 
         $request->validate([
-            'event_start' => 'before:'.$request->get('event_end')
+            'event_start' => 'nullable|before:'.$request->get('event_end')
         ]);
 
 
