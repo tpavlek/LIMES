@@ -19,8 +19,7 @@ class Post extends Model
     {
         $img_url = null;
         if ($request->hasFile('image')) {
-            $filename = Storage::disk('post_images')->putFile('', $request->file('image'));
-            $img_url = $request->hasFile('image') ? $filename;
+            $img_url = Storage::disk('post_images')->putFile('', $request->file('image'));
         }
 
         $user = \Auth::check() ? \Auth::user() : AnonUser::fromNameAndIp($request->get('name'),
