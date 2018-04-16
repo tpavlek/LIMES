@@ -17,8 +17,12 @@ class Post extends Model
 
     public static function createFromRequest(Location $location, CreatePostRequest $request)
     {
-        $filename = Storage::disk('post_images')->putFile('', $request->file('image'));
-        $img_url = $request->hasFile('image') ? $filename : null;
+        $img_url = null;
+        if ($request->hasFile('image')) {
+            $filename = Storage::disk('post_images')->putFile('', $request->file('image'));
+            $img_url = $request->hasFile('image') ? $filename;
+        }
+
         $user = \Auth::check() ? \Auth::user() : AnonUser::fromNameAndIp($request->get('name'),
             $request->getClientIp());
 
