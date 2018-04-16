@@ -60,7 +60,7 @@ class AdminController extends Controller
             'event_message' => $request->get('event_message')
         ]);
 
-        return redirect()->route('location', $id);
+        return redirect()->route('admin.show_location', $id);
     }
 
     public function fetchOpendata(Request $request)
