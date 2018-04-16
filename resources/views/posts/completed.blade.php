@@ -10,7 +10,7 @@
         <span class="fas fa-lemon"></span> &nbsp; <span class="fas fa-check"></span>
     </div>
 
-    <div class="p-2 border-t border-l border-r mx-4 bg-white px-4 relative z-10 mt-2 rounded-top leading-loose">
+    <div class="p-2 border-t border-l border-r mx-4 bg-white px-4 relative z-10 mt-2 mb-4 rounded-top leading-loose">
         <h2 class="text-grey-darkest">Post Created!</h2>
         <p>
             Thanks for using Edmonton's <strong>L</strong>ocation <strong>I</strong>ntegrated <strong>M</strong>essaging and <strong>E</strong>xperience <strong>S</strong>ervice!
