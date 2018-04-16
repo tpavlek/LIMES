@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('green'),
             'twitter' => '@troypavlek',
             'facebook_connected' => true,
-            'is_admin' => true,
+            'is_admin' => false,
         ]);
 
         $iveson = \App\User::create([
@@ -27,7 +27,8 @@ class DatabaseSeeder extends Seeder
             'name' => "Don Iveson",
             'email' => 'DonnyBoy@edmonton.ca',
             'password' => Hash::make('green'),
-            'twitter' => '@doniveson'
+            'twitter' => '@doniveson',
+            'is_admin' => true,
         ]);
 
         $opencity = \App\User::create([

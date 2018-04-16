@@ -8,6 +8,7 @@ use App\OpendataImporter;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Spatie\Browsershot\Browsershot;
+use Symfony\Component\Process\Exception\ProcessFailedException;
 
 class AdminController extends Controller
 {
@@ -92,17 +93,32 @@ class AdminController extends Controller
         foreach ($result as $location_data) {
             if ($location_data['lat'] && $location_data['lon']) {
                 $name = str_random();
-                Browsershot::url("https://www.instantstreetview.com/s/{$location_data['lat']},{$location_data['lon']}")
-                    ->windowSize(1280, 720)
-                    ->waitUntilNetworkIdle()
-                    ->click('#maparrow')
-                    ->save(public_path() . "/img/locations/$name.jpg");
 
-                \Image::make(public_path() . "/img/locations/$name.jpg")
-                    ->crop(1000, 500)
-                    ->save(public_path() . "/img/locations/$name.jpg");
+                $skip_image = false;
+                try {
+                    Browsershot::url("https://www.instantstreetview.com/s/{$location_data['lat']},{$location_data['lon']}")
+                        ->windowSize(1280, 720)
+                        ->waitUntilNetworkIdle()
+                        ->click('#maparrow')
+                        ->save(public_path() . "/img/locations/$name.jpg");
+                } catch (ProcessFailedException $exception) {
+                    try {
+                        Browsershot::url("https://www.instantstreetview.com/s/{$location_data['lat']},{$location_data['lon']}")
+                            ->windowSize(1280, 720)
+                            ->waitUntilNetworkIdle()
+                            ->save(public_path() . "/img/locations/$name.jpg");
+                    } catch (ProcessFailedException $exception) {
+                        $skip_image = true;
+                    }
+                }
 
-                $location_data['img_path'] = "$name.jpg";
+                if (! $skip_image) {
+                    \Image::make(public_path() . "/img/locations/$name.jpg")
+                        ->crop(1000, 500)
+                        ->save(public_path() . "/img/locations/$name.jpg");
+
+                    $location_data['img_path'] = "$name.jpg";
+                }
             }
 
             Location::build($location_data['name'], $location_data);
