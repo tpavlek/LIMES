@@ -11,7 +11,7 @@ class TagController extends Controller
     {
         $location = Location::findUuid($uuid);
 
-        return redirect()->route('location.show', $location->id);
+        return redirect()->route('location', $location->id);
     }
 
 }
